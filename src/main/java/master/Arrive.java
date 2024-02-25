@@ -10,7 +10,7 @@ public class Arrive {
 
     Scanner sc = new Scanner(System.in);
 
-    public void arriveCheck() {
+    public boolean arriveCheck() {
         String arrivecheck = null;
 
         System.out.print("출근을 입력해주세요. : ");
@@ -20,10 +20,10 @@ public class Arrive {
             arriveleave = true;  // 출근 상태로 바뀐다.
         } else {
             System.out.println("잘못된 입력값입니다.");
-        }
+        }return arriveleave;
     }
 
-    public void leaveCheck() {
+    public boolean leaveCheck() {
         String leavecheck = null;
 
         System.out.print("퇴근을 입력해주세요. : ");
@@ -33,6 +33,13 @@ public class Arrive {
             arriveleave = false;  // 퇴근 상태로 바뀐다.
         } else {
             System.out.println("잘못된 입력값입니다.");
-        }
+        } return arriveleave;
+    }
+    public String insertWorkStatus(){
+        String insertWorkStatus = null;
+        System.out.print("당일 근무 현황을 입력해주세요 (재실/부재)");
+        String ws = sc.nextLine();
+
+
     }
 }

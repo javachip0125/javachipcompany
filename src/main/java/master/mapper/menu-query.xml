@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment/>
+    <entry key="selectAttendanceInfo">
+        SELECT JAVACHIP_CODE,
+               WORK_HOUR,
+               REMAIN_VACATION,
+               WORK_STATUS,
+               ARRIVE_INFO,
+               LEAVE_INFO,
+               WORK_SCHEDULE
+        FROM ATTENDANCE_INFO
+    </entry>
+
+    <entry key="insertArriveInfo">
+        INSERT
+        INTO ATTENDANCE_INFO
+        (
+        ARRIVE_INFO
+        )
+        VALUES
+        (
+        ?
+        )
+    </entry>
+
+    <entry key="insertLeaveInfo">
+        INSERT
+        INTO ATTENDANCE_INFO
+        (
+        LEAVE_INFO
+        )
+        VALUES
+        (
+        ?
+        )
+    </entry>
+    
+    <entry key="insertRemainVacation">
+        INSERT
+        INTO ATTENDANCE_INFO
+        (
+        REMAIN_VACATION
+        )
+        VALUES
+        (
+        ?
+        )
+    </entry>
+
+    <entry key="insertWorkStatus">
+        INSERT
+        INTO ATTENDANCE_INFO
+        (
+        WORK_STATUS
+        )
+        VALUES
+        (
+        ?
+        )
+    </entry>
+</properties>
