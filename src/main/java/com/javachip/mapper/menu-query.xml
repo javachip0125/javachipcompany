@@ -26,11 +26,17 @@
          WHERE JAVACHIP_CODE = ?
     </entry>
 
-    <entry key="javachipStaffAttendanceList">
+    <entry key="EMPLOYEE_INQUIRY">
         SELECT
-               javachip_code,
-               arrive_info
-          from attendance_info
+               JAVACHIP_CODE,
+               WORK_HOUR,
+               REMAIN_VACATION,
+               WORK_STATUS,
+               ARRIVE_INFO,
+               LEAVE_INFO,
+               WORK_SCHEDULE
+          FROM ATTENDANCE_INFO
+         WHERE JAVACHIP_CODE
     </entry>
 
 
