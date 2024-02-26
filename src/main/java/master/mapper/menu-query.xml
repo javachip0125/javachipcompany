@@ -13,51 +13,42 @@
         FROM ATTENDANCE_INFO
     </entry>
 
-    <entry key="insertArriveInfo">
-        INSERT
-        INTO ATTENDANCE_INFO
-        (
-        ARRIVE_INFO
-        )
-        VALUES
-        (
-        ?
-        )
+    <entry key="updateArriveInfo">
+        UPDATE
+               ATTENDANCE_INFO
+
+        SET
+               ARRIVE_INFO = ?,
+               LEAVE_INFO = TRUE
+
+        WHERE  JAVACHIP_CODE = 1
     </entry>
 
-    <entry key="insertLeaveInfo">
-        INSERT
-        INTO ATTENDANCE_INFO
-        (
-        LEAVE_INFO
-        )
-        VALUES
-        (
-        ?
-        )
+    <entry key="updateLeaveInfo">
+        UPDATE
+               ATTENDANCE_INFO
+
+        SET
+               LEAVE_INFO = ?
+
+        WHERE  JAVACHIP_CODE = 1
     </entry>
 
-    <entry key="insertRemainVacation">
-        INSERT
-        INTO ATTENDANCE_INFO
-        (
-        REMAIN_VACATION
-        )
-        VALUES
-        (
-        ?
-        )
+    <entry key="updateRemainVacation">
+        UPDATE
+               ATTENDANCE_INFO
+
+        SET
+               REMAIN_VACATION = ?
+
+        WHERE  JAVACHIP_CODE = 1
     </entry>
 
-    <entry key="insertWorkStatus">
-        INSERT
-        INTO ATTENDANCE_INFO
-        (
-        WORK_STATUS
-        )
-        VALUES
-        (
-        ?
-        )
+    <entry key="updateWorkHour">
+        UPDATE
+              ATTENDANCE_INFO
+        SET
+              WORK_STATUS = ?
+        WHERE JAVACHIP_CODE = 1
     </entry>
 </properties>

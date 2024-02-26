@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
-import static master.common.JDBCTemplate.close;
+import static develop.javachip.common.JDBCTemplate.close;
 
 public class DAO {
 
@@ -28,7 +28,7 @@ public class DAO {
         PreparedStatement pstmt = null;
         int result1 = 0;
 
-        String query = prop.getProperty("attendanceInfo");
+        String query = prop.getProperty("updateArriveInfo");
 
         try {
             pstmt = con.prepareStatement(query);
@@ -51,7 +51,7 @@ public class DAO {
         PreparedStatement pstmt = null;
         int result2 = 0;
 
-        String query = prop.getProperty("insertLeaveInfo");
+        String query = prop.getProperty("updateLeaveInfo");
 
         try {
             pstmt = con.prepareStatement(query);
@@ -73,7 +73,7 @@ public class DAO {
 
         int result = 0;
 
-        String query = prop.getProperty("insertWorkStatus");
+        String query = prop.getProperty("updateWorkHour");
 
         try {
             pstmt = con.prepareStatement(query);

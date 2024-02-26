@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
-import static master.common.JDBCTemplate.getConnection;
+import static develop.javachip.common.JDBCTemplate.getConnection;
 
 public class Arrive {
     Connection con = getConnection();
@@ -54,12 +54,14 @@ public class Arrive {
 
     public String WorkStatusCheck() {
         String insertWorkStatus = null;
-        System.out.print("당일 근무 현황을 입력해주세요 (재실/부재)");
+        System.out.print("당일 근무 현황을 입력해주세요 (재실/부재) :");
         String ws = sc.nextLine();
 
         if (ws.equals("재실") || ws.equals("부재")) {
             dao.insertWorkStatus(con, ws);
             System.out.println("당일 근무 현황이 " + ws + "로 변경되었습니다.");
+        }else {
+            System.out.println("잘못된 입력값입니다.");
         }
         return ws;
     }
