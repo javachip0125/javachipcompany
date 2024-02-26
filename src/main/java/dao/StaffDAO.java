@@ -81,8 +81,10 @@ public class StaffDAO {
         selectedStaff.setArriveInfo(rset.getString("ARRIVE_INFO"));
         selectedStaff.setLeaveInfo(rset.getInt("LEAVE_INFO"));
       }
-      System.out.println("사원번호 : " + selectedStaff.getStaffCode() + " | 사원이름 : " + selectedStaff.getStaffName());
-      System.out.println("---------------------------");
+      System.out.println("사원번호 : " + selectedStaff.getStaffCode() + " | 이름 : " + selectedStaff.getStaffName() + " | 직책 : " + selectedStaff.getPosition());
+      System.out.println("직책 : " + selectedStaff.getPosition());
+
+      System.out.println("---------------------------------");
 
       System.out.println("남은연차 : " + selectedStaff.getRemainVacation());
       System.out.println("당일근무현황 : " + selectedStaff.getWorkStatus());
