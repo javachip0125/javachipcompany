@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import static develop.javachip.common.JDBCTemplate.close;
+
 
 public class StaffDAO {
   private Properties prop = new Properties();
