@@ -3,17 +3,22 @@ package master.run;
 import master.Arrive;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.Stack;
 
+import static master.common.JDBCTemplate.close;
 import static master.common.JDBCTemplate.getConnection;
 
 public class Application {
-
     public static void main(String[] args) {
-    /* master */
+
+        /* master */
         /* master */
 
         Connection con = getConnection();
+
         Arrive arrive = new Arrive();
 
         Scanner sc = new Scanner(System.in);
@@ -25,9 +30,12 @@ public class Application {
         System.out.print("메뉴를 골라주세요 : ");
         String answer = sc.nextLine();
         switch (answer){
-            case "출근하기" : arrive.arriveCheck();
-            case "조회하기" :
+            case "출근하기" : arrive.arriveCheck(); break;
+            case "조회하기" : arrive.AttendanceInfoCheck(); break;
+            case "일정등록하기" : arrive.WorkStatusCheck(); break;
+            case "퇴근하기" : arrive.leaveCheck();  break;
+            default:
+                System.out.println("잘못된 입력값입니다.");
         }
-
     }
 }

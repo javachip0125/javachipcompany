@@ -36,7 +36,7 @@
         ?
         )
     </entry>
-    
+
     <entry key="insertRemainVacation">
         INSERT
         INTO ATTENDANCE_INFO
