@@ -9,7 +9,7 @@ public class Application {
         /* master */
 
             JavachipDAO javachipDAO = new JavachipDAO();
-            javachipDAO.userCheck();
+
 
     }
 }

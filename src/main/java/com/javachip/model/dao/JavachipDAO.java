@@ -1,13 +1,14 @@
 package com.javachip.model.dao;
 
+import java.io.Closeable;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Properties;
-import java.util.Scanner;
+import java.sql.*;
+import java.util.*;
+
+import static com.javachip.common.JDBCTemplate.getConnection;
+import static jdk.internal.net.http.common.Utils.close;
+
 
 public class JavachipDAO {
 
@@ -29,7 +30,7 @@ public class JavachipDAO {
     String userpwd = "1534";
 
 
-    public String userCheck(){
+    public String userCheck() {
         String userId = null;
         String userPw = null;
         Connection con = null;
@@ -37,88 +38,50 @@ public class JavachipDAO {
         ResultSet rset = null;
 
         System.out.print("ID : ");
-         userId = sc.nextLine();
+        userId = sc.nextLine();
         System.out.print("비밀번호 : ");
         userPw = sc.nextLine();
 
-        if(userId.equals(useriid) && userPw.equals(userpwd)){
+        if (userId.equals(useriid) && userPw.equals(userpwd)) {
             System.out.println("로그인 성공!");
             logout = false;
 
-        }else {
+        } else {
             System.out.println("아이디와 비밀번호가 틀렸습니다.");
         }
         return "ID";
     }
 
 
-
-
-
     public void systemLogout() {
 
-        String yesOrNo = null ;
-        System.out.print("로그아웃");
+        Connection con = getConnection();
 
-        yesOrNo = sc.nextLine();
-        if (yesOrNo.equals("Y")) {
-            System.out.println("로그아웃 성공");
-            logout = true;
+        /* 쿼리문을 저장하고 실행하는 기능을 하는 용도의 인터페이스 */
+        Statement stmt = null;
 
-            if (yesOrNo.equals("N")){
+        /* select 결과집합을 받아 올 용도의 인터페이스 */
+        ResultSet rset = null;
 
-                System.out.println("다시 돌아가겠습니다.");
-                logout = false;
+        try {
+            /* connection을 이용하여 statement 인스턴스 생성 */
+            stmt = con.createStatement();
+
+            rset = stmt.executeQuery("SELECT JAVACHIP_CODE FROM JAVACHIP_MEMBER");
+
+            while (rset.next()) {
+                /* next() : ResultSet의 커서 위치를 하나 내리면서 행이 존재하면 true, 존재하지 않으면 false를 반환 */
+                System.out.println(rset.getString("JAVACHIP_CODE") + ", " + rset.getString("JAVACHIP_MEMBER"));
             }
-        } else {
-            System.out.println("잘못된 입력값입니다.");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(rset);
+            close(stmt);
+            close(con);
         }
     }
-    public class DeleteUser {
-
-        // delete 함수
-
-        public int Delete(String id) {
-
-            String sql = "DELETE FROM USERDTO "
-                    + "WHERE ID = '"+ id + "'";
-
-            // 기본 셋팅
-            Connection con = Connection.getConnection();
-            PreparedStatement psmt = null;
-            int count = 0;
-
-            // sql문 확인
-            System.out.println("sql = " + sql);
-            // 데이터 삭제하기 SQL실행
-            try {
-                psmt = conn.prepareStatement(sql);
-
-                count = psmt.executeUpdate();
-
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } finally{
-                try {
-
-                    DBClose.close(psmt, conn, null);
-
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-            }
-            System.out.println("퇴사자 "+ + id+ "를 삭제했습니다.");
-            return count;
-        }
-
-
-
-
-    }
-
 }
+
+

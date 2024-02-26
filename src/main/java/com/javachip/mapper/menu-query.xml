@@ -8,30 +8,28 @@
           FROM JAVACHIP_MEMBER
     </entry>
 
-    <entry key="DELETE_QUITTER ">
+    <entry key="DELETE_ATTENDANCE_INFO ">
         DELETE
         FROM ATTENDANCE_INFO
         WHERE JAVACHIP_CODE = ?;
     </entry>
 
-    <entry key="">
+    <entry key="DELETE_JAVACHIP_MEMBER">
         DELETE
           FROM JAVACHIP_MEMBER
          WHERE JAVACHIP_CODE = ?;
     </entry>
 
-    <entry key="">
+    <entry key="DELETE_WORK_SCHEDULE">
         DELETE
           FROM WORK_SCHEDULE
          WHERE JAVACHIP_CODE = ?;
     </entry>
 
-    <entry key="">
+    <entry key="Check_all_employees">
         SELECT
-               JAVACHIP_CODE,
-               POSITION,
-               JAVACHIP_NAME
-        FROM JAVACHIP_MEMBER;
+               JAVACHIP_CODE
+          FROM JAVACHIP_MEMBER;
     </entry>
 
 
