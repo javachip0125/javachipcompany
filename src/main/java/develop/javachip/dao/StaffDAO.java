@@ -1,6 +1,6 @@
-package dao;
+package develop.javachip.dao;
 
-import dto.StaffDTO;
+import develop.javachip.dto.StaffDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import static common.JDBCTemplate.close;
 
 public class StaffDAO {
   private Properties prop = new Properties();
