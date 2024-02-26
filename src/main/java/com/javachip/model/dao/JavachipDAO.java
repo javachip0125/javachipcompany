@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
+import static com.javachip.common.JDBCTemplate.close;
 import static com.javachip.common.JDBCTemplate.getConnection;
-import static jdk.internal.net.http.common.Utils.close;
 
 
 public class JavachipDAO {
@@ -55,25 +55,45 @@ public class JavachipDAO {
 
     public void systemLogout() {
 
-        Connection con = getConnection();
+        String yesOrNo = null;
+        System.out.print("로그아웃");
 
-        /* 쿼리문을 저장하고 실행하는 기능을 하는 용도의 인터페이스 */
+        yesOrNo = sc.nextLine();
+        if (yesOrNo.equals("Y")) {
+            System.out.println("로그아웃 성공");
+            logout = true;
+
+            if (yesOrNo.equals("N")) {
+
+                System.out.println("다시 돌아가겠습니다.");
+                logout = false;
+            }
+        } else {
+            System.out.println("잘못된 입력값입니다.");
+        }
+    }
+
+
+    public void List<Map<Integer, String>> (Connection con) {
+
         Statement stmt = null;
-
-        /* select 결과집합을 받아 올 용도의 인터페이스 */
         ResultSet rset = null;
 
+
+        List<Map<Integer, String>>  = null;
+
+        String query = prop.getProperty("Check_all_employees");
+
         try {
-            /* connection을 이용하여 statement 인스턴스 생성 */
             stmt = con.createStatement();
 
-            rset = stmt.executeQuery("SELECT JAVACHIP_CODE FROM JAVACHIP_MEMBER");
+            rset = stmt.executeQuery(query);
+
+            ArrayList = new javachipList;
 
             while (rset.next()) {
-                /* next() : ResultSet의 커서 위치를 하나 내리면서 행이 존재하면 true, 존재하지 않으면 false를 반환 */
-                System.out.println(rset.getString("JAVACHIP_CODE") + ", " + rset.getString("JAVACHIP_MEMBER"));
+                System.out.println(rset.getString("JAVACHIP_CODE"),rset.getString("arrive_info"));
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -81,7 +101,12 @@ public class JavachipDAO {
             close(stmt);
             close(con);
         }
+//method Check_all_employees in class JavachipDAO cannot be applied to given types;
+//            javachipDAO.Check_all_employees();
+
     }
+
 }
+
 
 

@@ -11,25 +11,26 @@
     <entry key="DELETE_ATTENDANCE_INFO ">
         DELETE
         FROM ATTENDANCE_INFO
-        WHERE JAVACHIP_CODE = ?;
+        WHERE JAVACHIP_CODE = ?
     </entry>
 
     <entry key="DELETE_JAVACHIP_MEMBER">
         DELETE
           FROM JAVACHIP_MEMBER
-         WHERE JAVACHIP_CODE = ?;
+         WHERE JAVACHIP_CODE = ?
     </entry>
 
     <entry key="DELETE_WORK_SCHEDULE">
         DELETE
           FROM WORK_SCHEDULE
-         WHERE JAVACHIP_CODE = ?;
+         WHERE JAVACHIP_CODE = ?
     </entry>
 
     <entry key="Check_all_employees">
         SELECT
-               JAVACHIP_CODE
-          FROM JAVACHIP_MEMBER;
+               javachip_code,
+               arrive_info
+          from attendance_info
     </entry>
 
 
