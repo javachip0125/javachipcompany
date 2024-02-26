@@ -8,6 +8,31 @@
           FROM JAVACHIP_MEMBER
     </entry>
 
+    <entry key="DELETE_QUITTER ">
+        DELETE
+        FROM ATTENDANCE_INFO
+        WHERE JAVACHIP_CODE = ?;
+    </entry>
+
+    <entry key="">
+        DELETE
+          FROM JAVACHIP_MEMBER
+         WHERE JAVACHIP_CODE = ?;
+    </entry>
+
+    <entry key="">
+        DELETE
+          FROM WORK_SCHEDULE
+         WHERE JAVACHIP_CODE = ?;
+    </entry>
+
+    <entry key="">
+        SELECT
+               JAVACHIP_CODE,
+               POSITION,
+               JAVACHIP_NAME
+        FROM JAVACHIP_MEMBER;
+    </entry>
 
 
 </properties>
