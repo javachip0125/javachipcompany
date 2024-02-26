@@ -74,38 +74,36 @@ public class JavachipDAO {
     }
 
 
-    public void List<Map<Integer, String>> (Connection con) {
+    public List<Map<Integer, String>> javachipStaffAttendanceList(Connection con) {
 
         Statement stmt = null;
         ResultSet rset = null;
 
+        List<Map<Integer, String>> arrive = null;
 
-        List<Map<Integer, String>>  = null;
-
-        String query = prop.getProperty("Check_all_employees");
+        String query = prop.getProperty("javachipStaffAttendanceList");
 
         try {
             stmt = con.createStatement();
-
             rset = stmt.executeQuery(query);
 
-            ArrayList = new javachipList;
+            arrive = new ArrayList<>();
 
             while (rset.next()) {
-                System.out.println(rset.getString("JAVACHIP_CODE"),rset.getString("arrive_info"));
+                Map<Integer, String> attendanceInfo = new HashMap<>();
+
+                arrive.add(attendanceInfo);
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             close(rset);
             close(stmt);
-            close(con);
         }
-//method Check_all_employees in class JavachipDAO cannot be applied to given types;
-//            javachipDAO.Check_all_employees();
 
+        return arrive;
     }
-
 }
 
 

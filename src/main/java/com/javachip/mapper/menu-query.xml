@@ -26,7 +26,7 @@
          WHERE JAVACHIP_CODE = ?
     </entry>
 
-    <entry key="Check_all_employees">
+    <entry key="javachipStaffAttendanceList">
         SELECT
                javachip_code,
                arrive_info
