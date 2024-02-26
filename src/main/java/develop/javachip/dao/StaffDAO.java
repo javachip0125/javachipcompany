@@ -1,6 +1,6 @@
-package dao;
+package develop.javachip.dao;
 
-import dto.StaffDTO;
+import develop.javachip.dto.StaffDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,14 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import static common.JDBCTemplate.close;
+import static develop.javachip.common.JDBCTemplate.close;
+
 
 public class StaffDAO {
   private Properties prop = new Properties();
 
   public StaffDAO() {
     try {
-      prop.loadFromXML(new FileInputStream("src/main/java/mapper/staff-query.xml"));
+      prop.loadFromXML(new FileInputStream("src/main/java/develop/javachip/mapper/staff-query.xml"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

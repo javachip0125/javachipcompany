@@ -1,4 +1,4 @@
-package dto;
+package develop.javachip.dto;
 
 public class StaffDTO {
 

@@ -1,6 +1,6 @@
-package run;
+package develop.javachip.run;
 
-import menu.SystemMenu;
+import develop.javachip.menu.SystemMenu;
 
 public class ApplicationTest {
   public static void main(String[] args) {
