@@ -17,6 +17,8 @@ public class SystemMenu {
 
   StaffDAO staffDAO = new StaffDAO();
 
+  StaffMenu staffMenu = new StaffMenu();
+
   public void loginMenu() {
     //scanner = new Scanner(System.in);
 
@@ -33,11 +35,9 @@ public class SystemMenu {
       //비밀번호 입력시 console에 입력하는 내용이 노출됨 - *로 변경가능한 방법 있는지 검색필요
       String inputPw = scanner.nextLine();
       System.out.println("=================================");
-
-      System.out.println("StaffDTO : " +staffDAO.selectStaff(con, inputId));
       if (staffDAO.selectStaff(con, inputId) != null && staffDAO.selectStaff(con, inputId).getStaffPw().equals(inputPw)) { //입력한 ID/PW가 DB와 일치한다면
-        System.out.println("inputId : " + inputId + "inputID와 관리자 ID 일치여부 : " + inputId.equals("USER07"));
-        System.out.println("입력한 PW와 DB상 PW 일치여부 : " + staffDAO.selectStaff(con, inputId).getStaffPw().equals(inputPw));
+        //System.out.println("inputId : " + inputId + "inputID와 관리자 ID 일치여부 : " + inputId.equals("USER07"));
+        //System.out.println("입력한 PW와 DB상 PW 일치여부 : " + staffDAO.selectStaff(con, inputId).getStaffPw().equals(inputPw));
         //관리자 인지 아닌지 여부 확인
         // 로그인한 아이디에 따라 관리자 메뉴 와 일반직원 메뉴 관련 메소드 호출
           if (inputId.equals("USER07")) {// 관리자가 접속한 경우
@@ -151,10 +151,6 @@ public class SystemMenu {
     System.out.println("=================================");
     System.out.println("     [JAVACHIP 근태관리 시스템]     ");
     System.out.println("=================================");
-    System.out.println("            [관리자 모드]          ");
-    System.out.println("---------------------------------");
-    System.out.println("        Today : 2024/02/29       ");
-    System.out.println("---------------------------------");
     System.out.println(selectedDTO.getStaffName() + "님 환영합니다.");
     System.out.println("---------------------------------");
     System.out.println("        Today : 2024/02/29       ");
@@ -184,6 +180,7 @@ public class SystemMenu {
 
           case 2 : // 일정등록
             System.out.println("일정등록 메뉴입니다.");
+            staffMenu.registerSchedule(); // 일정등록 메소드 호출
             break;
 
           case 3 : // 퇴근하기

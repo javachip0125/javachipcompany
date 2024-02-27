@@ -18,7 +18,7 @@ public class StaffDAO {
 
   public StaffDAO() {
     try {
-      prop.loadFromXML(new FileInputStream("src/main/java/mapper/staff-query.xml"));
+      prop.loadFromXML(new FileInputStream("src/main/java/develop/javachip/mapper/staff-query.xml"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -56,12 +56,16 @@ public class StaffDAO {
     return selectedStaff;
   }
 
+
+  //로그인 한 직원의 근태정보 데이터 가져오기 - 기본 화면 내용
   public void selectAttendanceInfo(Connection con, StaffDTO selectedStaff) {
     PreparedStatement pstmt = null;
 
     ResultSet rset = null;
 
     int staffCode = selectedStaff.getStaffCode();
+
+    StaffDTO loginedStaff = null;
 
     String query = prop.getProperty("selectAttendanceInfo");
 
@@ -72,25 +76,23 @@ public class StaffDAO {
       rset = pstmt.executeQuery();
 
       if (rset.next()) {
-        selectedStaff = new StaffDTO();
+        loginedStaff = new StaffDTO();
 
-        selectedStaff.setStaffCode(rset.getInt("JAVACHIP_CODE"));
-        selectedStaff.setStaffName(rset.getString("JAVACHIP_NAME"));
-        selectedStaff.setWorkHour(rset.getInt("WORK_HOUR"));
-        selectedStaff.setRemainVacation(rset.getInt("REMAIN_VACATION"));
-        selectedStaff.setWorkStatus(rset.getString("WORK_STATUS"));
-        selectedStaff.setArriveInfo(rset.getString("ARRIVE_INFO"));
-        selectedStaff.setLeaveInfo(rset.getInt("LEAVE_INFO"));
+        loginedStaff.setWorkHour(rset.getInt("WORK_HOUR"));
+        loginedStaff.setRemainVacation(rset.getInt("REMAIN_VACATION"));
+        loginedStaff.setWorkStatus(rset.getString("WORK_STATUS"));
+        loginedStaff.setArriveInfo(rset.getString("ARRIVE_INFO"));
+        loginedStaff.setLeaveInfo(rset.getInt("LEAVE_INFO"));
       }
-      System.out.println("사원번호 : " + selectedStaff.getStaffCode() + " | 이름 : " + selectedStaff.getStaffName() + " | 직책 : " + selectedStaff.getPosition());
-      System.out.println("직책 : " + selectedStaff.getPosition());
-
+      System.out.println("사원번호 : " + selectedStaff.getStaffCode() + " | 이름 : " + selectedStaff.getStaffName());
       System.out.println("---------------------------------");
-
-      System.out.println("남은연차 : " + selectedStaff.getRemainVacation());
-      System.out.println("당일근무현황 : " + selectedStaff.getWorkStatus());
-      System.out.println("출근정보 : " + selectedStaff.getArriveInfo());
-      System.out.println("퇴근정보 : " + (selectedStaff.getLeaveInfo() == 0 ? "미퇴근" : "퇴근완료"));
+      System.out.println("직책 : " + selectedStaff.getPosition());
+      System.out.println("---------------------------------");
+      System.out.println("남은연차 : " + loginedStaff.getRemainVacation());
+      System.out.println("당일근무현황 : " + (loginedStaff.getWorkStatus() == null ? "재실" : "부재"));
+      System.out.println("출근정보 : " + loginedStaff.getArriveInfo());
+      System.out.println("퇴근정보 : " + (loginedStaff.getLeaveInfo() == 0 ? "미퇴근" : "퇴근완료"));
+      System.out.println("---------------------------------");
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -100,4 +102,57 @@ public class StaffDAO {
       close(rset);
     }
   }
+
+
+  //로그인한 직원의 일정등록
+  public int insertNewSchedule(Connection con, String days, String schedule, StaffDTO selectedStaff) {
+    //일정등록에 필요한 요일 정보 / 스케쥴 입력 정보
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+    int result = 0;
+
+    days = "월요일";
+    schedule = "출장";
+
+    String query = prop.getProperty("insertNewSchedule");
+
+    try {
+      pstmt = con.prepareStatement(query);
+      pstmt.setString(1, days); // 입력한 요일값을 DAYS 컬럼 값으로 설정
+      pstmt.setString(2, schedule); //입력한 스케쥴을 DAY_SCHADULE 컬럼 값으로 설정
+      pstmt.setInt(3, selectedStaff.getStaffCode()); //로그인한 회원의 사번을 JAVACHIP_CODE 컬럼 값으로 설정
+
+      result = pstmt.executeUpdate(); //해당 UPDATE 쿼리문 실행결과 = -1 || 1;
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } finally {
+      close(pstmt);
+    }
+    return result;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
