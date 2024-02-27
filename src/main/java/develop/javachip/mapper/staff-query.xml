@@ -19,6 +19,16 @@
          WHERE JAVACHIP_CODE = ?
     </entry>
 
+    <!-- 이번주 오늘 일정 조회  -->
+    <entry key="selectTodaySchedule">
+        SELECT
+        DAYS
+        ,DAY_SCHEDULE
+        FROM WORK_SCHEDULE
+        WHERE
+        JAVACHIP_CODE = ?
+    </entry>
+
     <!-- 다음주 일정 조회  -->
     <entry key="selectNextSchedule">
         SELECT

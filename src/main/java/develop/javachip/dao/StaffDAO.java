@@ -88,7 +88,8 @@ public class StaffDAO {
       System.out.println("---------------------------------");
       System.out.println("직책 : " + selectedStaff.getPosition());
       System.out.println("---------------------------------");
-      System.out.println("남은연차 : " + loginedStaff.getRemainVacation());
+      System.out.println("총 근무시간 : " + loginedStaff.getWorkHour() + "시간");
+      System.out.println("남은연차 : " + loginedStaff.getRemainVacation() + "일 / 15일");
       System.out.println("당일근무현황 : " + (loginedStaff.getWorkStatus() == null ? "재실" : "부재"));
       System.out.println("출근정보 : " + loginedStaff.getArriveInfo());
       System.out.println("퇴근정보 : " + (loginedStaff.getLeaveInfo() == 0 ? "미퇴근" : "퇴근완료"));
@@ -103,6 +104,53 @@ public class StaffDAO {
     }
   }
 
+  //로그인한 직원의 당일 일정 조회
+  public void selectTodaySchedule(Connection con, StaffDTO selectedStaff) {
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+
+    String query = prop.getProperty("selectTodaySchedule");
+
+    try {
+      pstmt = con.prepareStatement(query);
+      pstmt.setInt(1, selectedStaff.getStaffCode());
+      rset = pstmt.executeQuery();
+
+      if (rset.next()) {
+        System.out.println("[ 금요일 ] : " + ( rset.getString("DAY_SCHEDULE") == null ? "정상근무" : rset.getString("DAY_SCHEDULE")));
+      }
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+
+  //로그인한 직원의 다음주 일정 조회
+  public void selectNextWeekSchedule(Connection con, StaffDTO selectedStaff) {
+    PreparedStatement pstmt = null;
+    ResultSet rset = null;
+
+    String query = prop.getProperty("selectNextSchedule");
+
+    try {
+      pstmt = con.prepareStatement(query);
+      pstmt.setInt(1, selectedStaff.getStaffCode());
+
+      rset = pstmt.executeQuery();
+
+      while (rset.next()) {
+        System.out.println("[ " + rset.getString("DAYS") + " ] : " +( (rset.getString("DAY_SCHEDULE")) == null ? "정상근무" : (rset.getString("DAY_SCHEDULE"))));
+        System.out.println("---------------------------------");
+      }
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } finally {
+      close(pstmt);
+      close(rset);
+    }
+  }
 
   //로그인한 직원의 일정등록
   public int updateNewSchedule(Connection con, String days, String schedule, StaffDTO selectedStaff) {

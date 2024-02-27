@@ -130,21 +130,6 @@ public class SystemMenu {
   }
 
 
-  // 개별 직원 근태 현황
-
-
-  // 일정정보
-
-
-  // 출근정보
-
-
-  // 당일근무현황
-
-
-  // 퇴근정보 조회
-
-
   //직원 메뉴
   public void staffMenu(StaffDTO selectedDTO) {
 
@@ -160,43 +145,6 @@ public class SystemMenu {
     staffDAO.selectAttendanceInfo(con, selectedDTO);
 
     //직원 메뉴
-    while (true) {
-
-      // 전체 직원 근태정보 조회 내용 출력
-      System.out.println();
-      System.out.println("1. 출근하기");
-      System.out.println("2. 일정등록");
-      System.out.println("3. 퇴근하기");
-      System.out.println();
-      System.out.println("=================================");
-      System.out.print("메뉴를 선택하세요 : ");
-      int menuNum = 0; // 입력한 메뉴 번호 저장
-      try {
-        menuNum = scanner.nextInt();
-
-        switch (menuNum) {// 올바른 메뉴를 입력한 경우 해당 메뉴 메소드 호출
-          case 1 : // 출근하기
-            System.out.println("출근하기 메뉴입니다.");
-            break;
-
-          case 2 : // 일정등록
-            System.out.println("일정등록 메뉴입니다.");
-            staffMenu.registerSchedule(selectedDTO); // 일정등록 메소드 호출
-            break;
-
-          case 3 : // 퇴근하기
-            System.out.println("퇴근하기 메뉴입니다.");
-            break;
-
-          default:// 입력한 메뉴 번호가 올바르지 않은 경우 다시 입력하도록
-            System.out.println("메뉴를 잘못 선택했습니다. 다시 선택해주세요.");
-            break;
-        }
-        break;
-      } catch (InputMismatchException e) { //menuNum에 정수가 아닌 타입으로 입력한 경우
-        System.out.println("메뉴를 잘못 선택했습니다. 다시 선택해주세요.");
-        scanner.nextLine(); // Scanner에 입력되어있던 내용 버퍼 비우기
-      }
-    }
+    staffMenu.staffMainMenu(selectedDTO);
   }
 }
