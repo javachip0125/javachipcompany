@@ -1,5 +1,6 @@
 package develop.javachip.menu;
 
+import develop.javachip.dao.ManagerDAO;
 import develop.javachip.dao.StaffDAO;
 import develop.javachip.dto.StaffDTO;
 
@@ -19,6 +20,8 @@ public class SystemMenu {
   Scanner sc = new Scanner(System.in);
 
   StaffDAO staffDAO = new StaffDAO();
+  ManagerDAO managerDAO = new ManagerDAO();
+
   private boolean arriveleave;
 
   public void loginMenu() {
@@ -104,6 +107,7 @@ public class SystemMenu {
         switch (menuNum) {// 올바른 메뉴를 입력한 경우 해당 메뉴 메소드 호출
           case 1 : // 개별 직원 근태 현황
             System.out.println("개별 직원 근태 현황 조회 메뉴입니다.");
+            managerDAO.EMPLOYEE_INQUIRY(con);
             break;
 
           case 2 : // 일정정보
