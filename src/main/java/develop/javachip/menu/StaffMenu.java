@@ -1,5 +1,6 @@
 package develop.javachip.menu;
 
+import develop.javachip.dao.OriginStaffDTO;
 import develop.javachip.dao.StaffDAO;
 import develop.javachip.dto.StaffDTO;
 
@@ -13,7 +14,7 @@ public class StaffMenu {
 
   Connection con = getConnection();
   Scanner scanner = new Scanner(System.in);
-  StaffDAO staffDAO = new StaffDAO();
+  OriginStaffDTO staffDAO = new OriginStaffDTO();
 
   //직원 메인 화면 및 시작메뉴
   public void staffMainMenu(StaffDTO selectedDTO) {
