@@ -26,7 +26,7 @@
          WHERE JAVACHIP_CODE = ?
     </entry>
 
-    <entry key="javachipStaffAttendanceList">
+    <entry key="EMPLOYEE_INQUIRY">
         SELECT
         JAVACHIP_CODE,
         WORK_HOUR,
@@ -36,7 +36,7 @@
         LEAVE_INFO,
         WORK_SCHEDULE
         FROM ATTENDANCE_INFO
-        WHERE JAVACHIP_CODE ?
+        WHERE JAVACHIP_CODE = ?
     </entry>
 
 

@@ -23,6 +23,15 @@ public class Application {
 
 
 
+
+
+
+
+
+
+
+
+
 //        List<Map<Integer, String>> categoryList = registDAO.selectAllCategory(con);
 //
 //        for (Map<Integer, String> category : categoryList) {
