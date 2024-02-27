@@ -42,7 +42,7 @@ public class ManagerDAO {
             rset = pstmt.executeQuery();
 
 
-                                                                                                                                                       사원번호,사원이름,사원아이디,직책,총근무시간,당일근무현황,남은연차,출근정보,퇴근정보
+                                                                                                                                                     
         while (rset.next()) {
 
 
