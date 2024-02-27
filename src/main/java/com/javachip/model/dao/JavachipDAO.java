@@ -100,6 +100,7 @@ public class JavachipDAO {
             rset = pstmt.executeQuery();
 
             if (rset.next()) {
+
                 selectedEmp = new JavachipDTO();
 
 
@@ -120,7 +121,7 @@ public class JavachipDAO {
 
                 System.out.print("퇴근 현황 : " + ((rset.getBoolean("LEAVE_INFO") == true)?  "퇴근함, " : "퇴근안함, " ));
                 selectedEmp.setWork_schedule(rset.getString("WORK_SCHEDULE"));
-                System.out.print("근무 현황 : " + rset.getString("WORK_SCHEDULE") + " ]");
+                System.out.print("근무 현황 : " + ((rset.getString("WORK_SCHEDULE") == "NULL" ? "정상출근" : (rset.getString("WORK_SCHEDULE") == "출장"? "출장" : (rset.getString("WORK_SCHEDULE") == "외근"? "외근" : "휴가" + " ]")))));
 
             }
 
@@ -133,6 +134,6 @@ public class JavachipDAO {
             close(con);
         }
 
-        System.out.println();
+        System.out.println(e);
     }
 }
