@@ -162,8 +162,6 @@ public class SystemMenu {
     System.out.println("=================================");
     System.out.println("     [JAVACHIP 근태관리 시스템]     ");
     System.out.println("=================================");
-    System.out.println("            [관리자 모드]          ");
-    System.out.println("---------------------------------");
     System.out.println("        Today : 2024/02/29       ");
     System.out.println("---------------------------------");
     System.out.println(selectedDTO.getStaffName() + "님 환영합니다.");
