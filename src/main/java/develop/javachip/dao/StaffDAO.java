@@ -15,10 +15,11 @@ import static develop.javachip.common.JDBCTemplate.close;
 
 public class StaffDAO {
   private Properties prop = new Properties();
+  StaffDTO staffDTO = new StaffDTO();
 
   public StaffDAO() {
     try {
-      prop.loadFromXML(new FileInputStream("src/main/java/mapper/staff-query.xml"));
+      prop.loadFromXML(new FileInputStream("src/main/java/develop/javachip/mapper/staff-query.xml"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -58,7 +59,7 @@ public class StaffDAO {
 
   public void selectAttendanceInfo(Connection con, StaffDTO selectedStaff) {
     PreparedStatement pstmt = null;
-
+    StaffDTO staffDTO= null;
     ResultSet rset = null;
 
     int staffCode = selectedStaff.getStaffCode();
@@ -72,32 +73,101 @@ public class StaffDAO {
       rset = pstmt.executeQuery();
 
       if (rset.next()) {
-        selectedStaff = new StaffDTO();
+        staffDTO = new StaffDTO();
 
-        selectedStaff.setStaffCode(rset.getInt("JAVACHIP_CODE"));
-        selectedStaff.setStaffName(rset.getString("JAVACHIP_NAME"));
-        selectedStaff.setWorkHour(rset.getInt("WORK_HOUR"));
-        selectedStaff.setRemainVacation(rset.getInt("REMAIN_VACATION"));
-        selectedStaff.setWorkStatus(rset.getString("WORK_STATUS"));
-        selectedStaff.setArriveInfo(rset.getString("ARRIVE_INFO"));
-        selectedStaff.setLeaveInfo(rset.getInt("LEAVE_INFO"));
+        staffDTO.setStaffCode(rset.getInt("JAVACHIP_CODE"));
+        staffDTO.setStaffName(selectedStaff.getStaffName());
+        staffDTO.setWorkHour(rset.getInt("WORK_HOUR"));
+        staffDTO.setRemainVacation(rset.getInt("REMAIN_VACATION"));
+        staffDTO.setWorkStatus(rset.getString("WORK_STATUS"));
+        staffDTO.setArriveInfo(rset.getString("ARRIVE_INFO"));
+        staffDTO.setLeaveInfo(rset.getInt("LEAVE_INFO"));
       }
-      System.out.println("사원번호 : " + selectedStaff.getStaffCode() + " | 이름 : " + selectedStaff.getStaffName() + " | 직책 : " + selectedStaff.getPosition());
+      System.out.println("사원번호 : " + selectedStaff.getStaffCode() + " | 이름 : " + selectedStaff.getStaffName());
       System.out.println("직책 : " + selectedStaff.getPosition());
 
       System.out.println("---------------------------------");
 
-      System.out.println("남은연차 : " + selectedStaff.getRemainVacation());
-      System.out.println("당일근무현황 : " + selectedStaff.getWorkStatus());
-      System.out.println("출근정보 : " + selectedStaff.getArriveInfo());
-      System.out.println("퇴근정보 : " + (selectedStaff.getLeaveInfo() == 0 ? "미퇴근" : "퇴근완료"));
+      System.out.println("남은연차 : " + staffDTO.getRemainVacation());
+      System.out.println("당일근무현황 : " + staffDTO.getWorkStatus());
+      System.out.println("출근정보 : " + staffDTO.getArriveInfo());
+      System.out.println("퇴근정보 : " + (staffDTO.getLeaveInfo() == 0 ? "미퇴근" : "퇴근완료"));
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
     } finally {
-      close(con);
       close(pstmt);
       close(rset);
     }
+  }
+  public int updateArriveInfo(Connection con, String arriveanswer, StaffDTO selectedDTO) {
+
+    PreparedStatement pstmt = null;
+    StaffDTO selectedStaff = null;
+    int result1 = 0;
+
+    String query = prop.getProperty("updateArriveInfo");
+
+    try {
+
+      pstmt = con.prepareStatement(query);
+      pstmt.setString(1,arriveanswer);
+      pstmt.setInt(2,selectedDTO.getStaffCode());
+
+      result1 = pstmt.executeUpdate();
+      System.out.println(result1);
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } finally {
+      close(pstmt);
+      close(con);
+    }
+
+    return result1;
+  }
+  public int updateLeaveInfo(Connection con,Boolean arriveleave, StaffDTO selectedDTO) {
+    PreparedStatement pstmt = null;
+    int result2 = 0;
+
+    String query = prop.getProperty("updateLeaveInfo");
+    try {
+      pstmt = con.prepareStatement(query);
+      pstmt.setBoolean(1, arriveleave);
+      pstmt.setInt(2, selectedDTO.getStaffCode());
+      System.out.println("staff code : "+staffDTO.getStaffCode());
+
+      result2 = pstmt.executeUpdate();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } finally {
+      close(pstmt);
+      close(con);
+    }
+
+    return result2;
+  }
+  public int updateWorkStatus(Connection con, String ws, StaffDTO selectedDTO) {
+    PreparedStatement pstmt = null;
+
+    int result = 0;
+
+    String query = prop.getProperty("updateWorkHour");
+
+    try {
+      pstmt = con.prepareStatement(query);
+
+      pstmt.setString(1, ws);
+      pstmt.setInt(2, selectedDTO.getStaffCode());
+
+      result = pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } finally {
+      close(pstmt);
+      close(con);
+    }
+    return result;
   }
 }

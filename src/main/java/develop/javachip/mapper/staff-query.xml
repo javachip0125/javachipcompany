@@ -50,4 +50,44 @@
     <!--        , ?-->
     <!--        )-->
     <!--    </entry>-->
+
+<!--    정보 업데이트-->
+    <entry key="updateArriveInfo">
+        UPDATE
+        ATTENDANCE_INFO
+
+        SET
+        ARRIVE_INFO = ?,
+        LEAVE_INFO = false
+
+        WHERE  JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="updateLeaveInfo">
+        UPDATE
+        ATTENDANCE_INFO
+
+        SET
+        LEAVE_INFO = ?
+
+        WHERE  JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="updateRemainVacation">
+        UPDATE
+        ATTENDANCE_INFO
+
+        SET
+        REMAIN_VACATION = ?
+
+        WHERE  JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="updateWorkHour">
+        UPDATE
+        ATTENDANCE_INFO
+        SET
+        WORK_STATUS = ?
+        WHERE JAVACHIP_CODE = ?
+    </entry>
 </properties>

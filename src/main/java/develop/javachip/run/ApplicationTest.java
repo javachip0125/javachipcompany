@@ -8,5 +8,6 @@ public class ApplicationTest {
     SystemMenu systemMenu = new SystemMenu();
 
     systemMenu.loginMenu();
+
   }
 }
