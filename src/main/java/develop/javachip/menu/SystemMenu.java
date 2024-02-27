@@ -22,6 +22,8 @@ public class SystemMenu {
   StaffDAO staffDAO = new StaffDAO();
   ManagerDAO managerDAO = new ManagerDAO();
 
+  StaffMenu staffMenu = new StaffMenu();
+
   private boolean arriveleave;
 
   public void loginMenu() {
@@ -172,96 +174,10 @@ public class SystemMenu {
     System.out.println("=================================");
     staffDAO.selectAttendanceInfo(con, selectedDTO);
 
-    //직원 메뉴
-    while (true) {
+    //직원 메인 메뉴 호출
+    staffMenu.staffMainMenu(selectedDTO);
 
-      // 전체 직원 근태정보 조회 내용 출력
-      System.out.println();
-      System.out.println("1. 출근하기");
-      System.out.println("2. 일정등록");
-      System.out.println("3. 퇴근하기");
-      System.out.println("=================================");
-      System.out.print("메뉴를 선택하세요 : ");
-      int menuNum = 0; // 입력한 메뉴 번호 저장
-      try {
-        menuNum = scanner.nextInt();
+  } //직원메뉴 END
 
-        switch (menuNum) {// 올바른 메뉴를 입력한 경우 해당 메뉴 메소드 호출
-          case 1 : // 출근하기
-            System.out.println("출근하기 메뉴입니다.");
-            arriveCheck(selectedDTO);
 
-            break;
-
-          case 2 : // 일정등록
-            System.out.println("일정등록 메뉴입니다.");
-            WorkStatusCheck(selectedDTO);
-            break;
-
-          case 3 : // 퇴근하기
-            System.out.println("퇴근하기 메뉴입니다.");
-            leaveCheck(selectedDTO);
-            break;
-
-          default:// 입력한 메뉴 번호가 올바르지 않은 경우 다시 입력하도록
-            System.out.println("메뉴를 잘못 선택했습니다. 다시 선택해주세요.");
-            break;
-        }
-        break;
-      } catch (InputMismatchException e) { //menuNum에 정수가 아닌 타입으로 입력한 경우
-        System.out.println("메뉴를 잘못 선택했습니다. 다시 선택해주세요.");
-        scanner.nextLine(); // Scanner에 입력되어있던 내용 버퍼 비우기
-      }
-    }
-  } //직원메뉴
-
-  // 출근하기
-  public String arriveCheck(StaffDTO selectedDTO) {
-    String arriveanswer = null;
-
-    System.out.print("출근을 입력해주세요. : ");
-    arriveanswer = sc.nextLine();
-
-    if (arriveanswer.equals("출근")) {
-      arriveleave = false;  // 출근 상태로 바뀐다.
-      staffDAO.updateArriveInfo(con, arriveanswer, selectedDTO);
-      System.out.println("근태 정보가 출근으로 바뀌었습니다.");
-    } else {
-      System.out.println("잘못된 입력값입니다.");
-    }
-    return arriveanswer;
-  }
-
-  // 퇴근하기
-  public String leaveCheck(StaffDTO selectedDTO) {
-    PreparedStatement pstmt = null;
-    String leavecheck = null;
-
-    System.out.print("퇴근을 입력해주세요. : ");
-    leavecheck = sc.nextLine();
-    if (leavecheck.equals("퇴근")) {
-      System.out.println("근태 정보가 퇴근으로 바뀌었습니다.");
-      arriveleave = true;  // 퇴근 상태로 바뀐다.
-      staffDAO.updateLeaveInfo(con, arriveleave, selectedDTO);
-
-    } else {
-      System.out.println("잘못된 입력값입니다.");
-    }
-    return leavecheck;
-  }
-
-  // 당일 근무 현황 변경하기
-  public String WorkStatusCheck(StaffDTO selectedDTO) {
-    String insertWorkStatus = null;
-    System.out.print("당일 근무 현황을 입력해주세요 (재실/부재) :");
-    String ws = sc.nextLine();
-
-    if (ws.equals("재실") || ws.equals("부재")) {
-      staffDAO.updateWorkStatus(con, ws, selectedDTO);
-      System.out.println("당일 근무 현황이 " + ws + "로 변경되었습니다.");
-    }else {
-      System.out.println("잘못된 입력값입니다.");
-    }
-    return ws;
-  }
 }

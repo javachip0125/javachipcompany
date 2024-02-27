@@ -47,25 +47,6 @@
               DAY_SCHEDULE = ?
         WHERE DAYS = ? AND JAVACHIP_CODE = ?;
     </entry>
-    <!--    <entry key="insertMenu">-->
-    <!--        INSERT-->
-    <!--        INTO TBL_MENU-->
-    <!--        (-->
-    <!--        MENU_CODE-->
-    <!--        , MENU_NAME-->
-    <!--        , MENU_PRICE-->
-    <!--        , CATEGORY_CODE-->
-    <!--        , ORDERABLE_STATUS-->
-    <!--        )-->
-    <!--        VALUES-->
-    <!--        (-->
-    <!--        ?-->
-    <!--        , ?-->
-    <!--        , ?-->
-    <!--        , ?-->
-    <!--        , ?-->
-    <!--        )-->
-    <!--    </entry>-->
 
 <!--    정보 업데이트-->
     <entry key="updateArriveInfo">

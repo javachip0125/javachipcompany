@@ -1,20 +1,23 @@
 package develop.javachip.menu;
 
-import develop.javachip.dao.OriginStaffDTO;
 import develop.javachip.dao.StaffDAO;
 import develop.javachip.dto.StaffDTO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static develop.javachip.common.JDBCTemplate.getConnection;
 
+
 public class StaffMenu {
+  private boolean arriveleave;
 
   Connection con = getConnection();
   Scanner scanner = new Scanner(System.in);
-  OriginStaffDTO staffDAO = new OriginStaffDTO();
+
+  StaffDAO staffDAO = new StaffDAO();
 
   //직원 메인 화면 및 시작메뉴
   public void staffMainMenu(StaffDTO selectedDTO) {
@@ -23,9 +26,10 @@ public class StaffMenu {
       // 전체 직원 근태정보 조회 내용 출력
       System.out.println();
       System.out.println("1. 출근하기");
-      System.out.println("2. 일정등록");
-      System.out.println("3. 퇴근하기");
-      System.out.println("4. 로그아웃");
+      System.out.println("2. 당일근무현황 변경");
+      System.out.println("3. 일정등록");
+      System.out.println("4. 퇴근하기");
+      System.out.println("5. 로그아웃");
       System.out.println();
       System.out.println("=================================");
       System.out.print("메뉴를 선택하세요 : ");
@@ -35,10 +39,18 @@ public class StaffMenu {
 
         switch (menuNum) {// 올바른 메뉴를 입력한 경우 해당 메뉴 메소드 호출
           case 1 : // 출근하기
+            scanner.nextLine(); // Scanner에 입력되어있던 내용 버퍼 비우기
             System.out.println("출근하기 메뉴입니다.");
+            arriveCheck(selectedDTO);
             break;
 
-          case 2 : // 일정등록
+          case 2 :
+            scanner.nextLine(); // Scanner에 입력되어있던 내용 버퍼 비우기
+            System.out.println("당일근무현황 메뉴입니다.");
+            WorkStatusCheck(selectedDTO);
+            break;
+
+          case 3 : // 일정등록
             System.out.println("일정등록 메뉴입니다.");
             registerSchedule(selectedDTO); // 일정등록 메소드 호출
             char answer;
@@ -62,11 +74,13 @@ public class StaffMenu {
             }
             break;
 
-          case 3 : // 퇴근하기
+          case 4 : // 퇴근하기
+            scanner.nextLine(); // Scanner에 입력되어있던 내용 버퍼 비우기
             System.out.println("퇴근하기 메뉴입니다.");
+            leaveCheck(selectedDTO);
             break;
 
-          case 4 : // 로그아웃
+          case 5 : // 로그아웃
             System.out.println("로그아웃을 진행합니다.");
             break;
 
@@ -75,7 +89,7 @@ public class StaffMenu {
             break;
         }
 
-        if (menuNum == 4) {
+        if (menuNum == 5) {
           System.out.println("로그아웃이 완료되었습니다.");
           System.out.println("프로그램을 종료합니다.");
         }
@@ -200,5 +214,55 @@ public class StaffMenu {
       break;
     }
 
+  }//일정등록 메뉴 메소드
+
+  // 출근하기
+  public String arriveCheck(StaffDTO selectedDTO) {
+    //String arriveanswer = "";
+
+    System.out.print("출근을 입력해주세요. : ");
+    String arriveAnswer = scanner.nextLine();
+
+    if (arriveAnswer.equals("출근")) {
+      arriveleave = false;  // 출근 상태로 바뀐다.
+      staffDAO.updateArriveInfo(con, arriveAnswer, selectedDTO);
+      System.out.println("근태 정보가 출근으로 바뀌었습니다.");
+    } else {
+      System.out.println("잘못된 입력값입니다.");
+    }
+    return arriveAnswer;
+  }
+
+  // 퇴근하기
+  public String leaveCheck(StaffDTO selectedDTO) {
+    PreparedStatement pstmt = null;
+    String leavecheck = null;
+
+    System.out.print("퇴근을 입력해주세요. : ");
+    leavecheck = scanner.nextLine();
+    if (leavecheck.equals("퇴근")) {
+      System.out.println("근태 정보가 퇴근으로 바뀌었습니다.");
+      arriveleave = true;  // 퇴근 상태로 바뀐다.
+      staffDAO.updateLeaveInfo(con, arriveleave, selectedDTO);
+
+    } else {
+      System.out.println("잘못된 입력값입니다.");
+    }
+    return leavecheck;
+  }
+
+  // 당일 근무 현황 변경하기
+  public String WorkStatusCheck(StaffDTO selectedDTO) {
+    String insertWorkStatus = null;
+    System.out.print("당일 근무 현황을 입력해주세요 (재실/부재) :");
+    String ws = scanner.nextLine();
+
+    if (ws.equals("재실") || ws.equals("부재")) {
+      staffDAO.updateWorkStatus(con, ws, selectedDTO);
+      System.out.println("당일 근무 현황이 " + ws + "로 변경되었습니다.");
+    }else {
+      System.out.println("잘못된 입력값입니다.");
+    }
+    return ws;
   }
 }
