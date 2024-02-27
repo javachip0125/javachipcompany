@@ -218,8 +218,6 @@ public class StaffMenu {
 
   // 출근하기
   public String arriveCheck(StaffDTO selectedDTO) {
-    //String arriveanswer = "";
-
     System.out.print("출근을 입력해주세요. : ");
     String arriveAnswer = scanner.nextLine();
 
@@ -235,11 +233,8 @@ public class StaffMenu {
 
   // 퇴근하기
   public String leaveCheck(StaffDTO selectedDTO) {
-    PreparedStatement pstmt = null;
-    String leavecheck = null;
-
     System.out.print("퇴근을 입력해주세요. : ");
-    leavecheck = scanner.nextLine();
+    String leavecheck = scanner.nextLine();
     if (leavecheck.equals("퇴근")) {
       System.out.println("근태 정보가 퇴근으로 바뀌었습니다.");
       arriveleave = true;  // 퇴근 상태로 바뀐다.
@@ -253,7 +248,6 @@ public class StaffMenu {
 
   // 당일 근무 현황 변경하기
   public String WorkStatusCheck(StaffDTO selectedDTO) {
-    String insertWorkStatus = null;
     System.out.print("당일 근무 현황을 입력해주세요 (재실/부재) :");
     String ws = scanner.nextLine();
 
