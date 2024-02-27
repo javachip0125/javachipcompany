@@ -105,21 +105,17 @@ public class StaffDAO {
 
 
   //로그인한 직원의 일정등록
-  public int insertNewSchedule(Connection con, String days, String schedule, StaffDTO selectedStaff) {
+  public int updateNewSchedule(Connection con, String days, String schedule, StaffDTO selectedStaff) {
     //일정등록에 필요한 요일 정보 / 스케쥴 입력 정보
     PreparedStatement pstmt = null;
-    ResultSet rset = null;
     int result = 0;
 
-    days = "월요일";
-    schedule = "출장";
-
-    String query = prop.getProperty("insertNewSchedule");
+    String query = prop.getProperty("updateNewSchedule");
 
     try {
       pstmt = con.prepareStatement(query);
-      pstmt.setString(1, days); // 입력한 요일값을 DAYS 컬럼 값으로 설정
-      pstmt.setString(2, schedule); //입력한 스케쥴을 DAY_SCHADULE 컬럼 값으로 설정
+      pstmt.setString(1, schedule); // 입력한 스케쥴을 DAY_SCHADULE 컬럼 값으로 설정
+      pstmt.setString(2, days); //입력한 요일값을 DAYS 컬럼 값으로 설정
       pstmt.setInt(3, selectedStaff.getStaffCode()); //로그인한 회원의 사번을 JAVACHIP_CODE 컬럼 값으로 설정
 
       result = pstmt.executeUpdate(); //해당 UPDATE 쿼리문 실행결과 = -1 || 1;

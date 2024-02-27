@@ -1,14 +1,22 @@
 package develop.javachip.menu;
 
+import develop.javachip.dao.StaffDAO;
+import develop.javachip.dto.StaffDTO;
+
+import java.sql.Connection;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static develop.javachip.common.JDBCTemplate.getConnection;
+
 public class StaffMenu {
 
+  Connection con = getConnection();
   Scanner sc = new Scanner(System.in);
+  StaffDAO staffDAO = new StaffDAO();
 
   //일정등록 메뉴
-  public void registerSchedule() {
+  public void registerSchedule(StaffDTO staffDTO) {
 
     System.out.println("=================================");
     System.out.println("              일정등록             ");
@@ -32,7 +40,6 @@ public class StaffMenu {
       System.out.print("일정 등록을 할 요일을 선택하세요 : ");
       Scanner sc = new Scanner(System.in);
       int selectDay = 0;
-
 
       try {
         selectDay = sc.nextInt();
@@ -101,8 +108,12 @@ public class StaffMenu {
           System.out.println("선택할수 없는 일정입니다.\n다시 일정을 선택해주세요.");
           System.out.println("---------------------------------");
         } else {
-          System.out.println("다음주 [" + select  + "]" + "[" + schedule + "]" + " 일정 등록을 완료했습니다.");
-          break;
+          if (staffDAO.updateNewSchedule(con, select, schedule, staffDTO) < 0) {
+            System.out.println("다음주 일정 등록에 실패했습니다. 다시 시도해주세요.");
+          } else {
+            System.out.println("다음주 [" + select  + "]" + "[" + schedule + "]" + " 일정 등록을 완료했습니다.");
+            break;
+          }
         }
       } catch (InputMismatchException e) {
         //selectDay에 정수가 아닌 타입으로 입력한 경우

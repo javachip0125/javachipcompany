@@ -30,14 +30,12 @@
     </entry>
 
     <!-- 다음주 일정 등록  -->
-    <entry key="insertNewSchedule">
+    <entry key="updateNewSchedule">
         UPDATE
-               WORK_SCHEDULE_NEXTWEEK
+              WORK_SCHEDULE_NEXTWEEK
            SET
-               DAYS = ?
-              ,DAY_SCHEDULE = ?
-        WHERE
-             JAVACHIP_CODE = ?
+              DAY_SCHEDULE = ?
+        WHERE DAYS = ? AND JAVACHIP_CODE = ?;
     </entry>
     <!--    <entry key="insertMenu">-->
     <!--        INSERT-->

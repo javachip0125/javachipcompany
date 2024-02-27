@@ -167,6 +167,7 @@ public class SystemMenu {
       System.out.println("1. 출근하기");
       System.out.println("2. 일정등록");
       System.out.println("3. 퇴근하기");
+      System.out.println();
       System.out.println("=================================");
       System.out.print("메뉴를 선택하세요 : ");
       int menuNum = 0; // 입력한 메뉴 번호 저장
@@ -180,7 +181,7 @@ public class SystemMenu {
 
           case 2 : // 일정등록
             System.out.println("일정등록 메뉴입니다.");
-            staffMenu.registerSchedule(); // 일정등록 메소드 호출
+            staffMenu.registerSchedule(selectedDTO); // 일정등록 메소드 호출
             break;
 
           case 3 : // 퇴근하기
