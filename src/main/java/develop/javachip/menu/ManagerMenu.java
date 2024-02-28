@@ -47,6 +47,7 @@ public class ManagerMenu {
 
                     case 3: // 출근정보
                         System.out.println("출근정보 메뉴입니다.");
+                        managerDAO.selectArriveInfo(con);
                         break;
 
                     case 4: // 당일근무현황

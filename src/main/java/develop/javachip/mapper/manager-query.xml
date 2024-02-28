@@ -14,10 +14,20 @@
               - 조회 결과 : 코드, 이름, 직책-->
     <entry key="selectWorkStatus">
         SELECT
+               A.JAVACHIP_CODE,
+               A.JAVACHIP_NAME,
+               A.POSITION,
+               B.WORK_STATUS
+          FROM JAVACHIP_MEMBER A
+          JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE;
+    </entry>
+
+    <entry key="selectArriveInfo">
+        SELECT
         A.JAVACHIP_CODE,
         A.JAVACHIP_NAME,
         A.POSITION,
-        B.WORK_STATUS
+        B.ARRIVE_INFO
         FROM JAVACHIP_MEMBER A
         JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE;
     </entry>

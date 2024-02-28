@@ -121,6 +121,35 @@ public class ManagerDAO {
             close(pstmt);
         }
     }
+    // 출근 정보 조회
+    public void selectArriveInfo(Connection con){
+        PreparedStatement pstmt = null;
+
+        ResultSet rset = null;
+
+        String query = prop.getProperty("selectArriveInfo");
+        try {
+            pstmt = con.prepareStatement(query);
+            rset = pstmt.executeQuery();
+
+            System.out.println("―――――――――――――――――――――――――――――");
+            System.out.println("│  사원번호  |  사원이름  |   직책   |   출근정보   │");
+            System.out.println("―――――――――――――――――――――――――――――");
+
+                while (rset.next()) {
+
+                    System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                            + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
+                            + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + "  " : rset.getString("POSITION") + "   ") + "|"
+                            + "     " + ("출근".equals(rset.getString("ARRIVE_INFO")) ? "출근    " : "결근".equals(rset.getString("ARRIVE_INFO")) ? "결근    " : "미입력  ") + "|");
+
+                    System.out.println("―――――――――――――――――――――――――――――");
+                }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public void Check_or_employee() {
 
         Connection con = getConnection();
