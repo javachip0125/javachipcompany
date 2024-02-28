@@ -192,5 +192,40 @@ public class ManagerDAO {
             close(rset);
         }
     }
+    public void remainVacation() {
 
+        Connection con = getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        String query = prop.getProperty("remainVacation");
+
+        try {
+            pstmt = con.prepareStatement(query);
+            rset = pstmt.executeQuery();
+
+            System.out.println("―――――――――――――――――――――――――――――");
+            System.out.println("│  사원번호  |  사원이름  |   직책   |  남은 연차  │");
+            System.out.println("―――――――――――――――――――――――――――――");
+
+            while (rset.next()) {
+                System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                                + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
+                                + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
+                                + "     "+(rset.getInt("REMAIN_VACATION") >= 10 ? rset.getInt("REMAIN_VACATION")+ "    ": rset.getInt("REMAIN_VACATION") + "     ") + "│");
+                System.out.println("―――――――――――――――――――――――――――――");
+
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }finally {
+            close(con);
+            close(pstmt);
+            close(rset);
+        }
+
+    }
 }

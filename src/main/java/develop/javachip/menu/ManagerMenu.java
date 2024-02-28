@@ -51,11 +51,12 @@ public class ManagerMenu {
 
                     case 4: // 당일근무현황
                         System.out.println("당일근무현황 메뉴입니다.");
-                        workStatus();
+                        managerDAO.selectWorkStatus(con);
                         break;
 
                     case 5: // 연차정보
                         System.out.println("연차정보 메뉴입니다.");
+                        managerDAO.remainVacation();
                         break;
                         
                     case 6: // 퇴근정보
@@ -83,11 +84,5 @@ public class ManagerMenu {
                 scanner.nextLine(); // Scanner에 입력되어있던 내용 버퍼 비우기
             }
         }
-    }
-
-    // 당일근무현황 : 전체직원에 대한 조회 만들기
-    public void workStatus(){
-        System.out.println("전체직원에 대한 당일근무현황 조회한 결과입니다.");
-        managerDAO.selectWorkStatus(con);
     }
 }

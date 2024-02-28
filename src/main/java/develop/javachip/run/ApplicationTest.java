@@ -13,10 +13,7 @@ public class ApplicationTest {
 
     SystemMenu systemMenu = new SystemMenu();
 
-  //  systemMenu.loginMenu();
-    Connection con = getConnection();
-    ManagerDAO managerDAO = new ManagerDAO();
-    managerDAO.remainVacation();
+    systemMenu.loginMenu();
 
 
   }
