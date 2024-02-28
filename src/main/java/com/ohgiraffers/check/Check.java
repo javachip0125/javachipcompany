@@ -20,7 +20,7 @@ public class Check {
 
         ManagerDAO dao = new ManagerDAO();
 //        dao.Check_or_employee();
-
+        dao.selectLeaveinfo();
 
 
 

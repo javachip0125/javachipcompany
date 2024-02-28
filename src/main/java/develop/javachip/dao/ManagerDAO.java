@@ -90,7 +90,6 @@ public class ManagerDAO {
     }
 
 
-
     public void Check_or_employee() {
 
         Connection con = getConnection();
@@ -98,7 +97,6 @@ public class ManagerDAO {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         ManagerDTO managerDTO = null;
-
 
 
 //        String query = "SELECT\n" +
@@ -121,21 +119,16 @@ public class ManagerDAO {
             rset = pstmt.executeQuery();
 
 
-
             while (rset.next()) {
-
-
 
 
                 System.out.println("금일 근태 현황 조회");
                 System.out.println("=====================================");
-                System.out.println("사원번호" +rset.getInt("JAVACHIP_CODE") + "  : " + "사원이름"+ "  " +rset.getString("JAVACHIP_NAME") );
+                System.out.println("사원번호" + rset.getInt("JAVACHIP_CODE") + "  : " + "사원이름" + "  " + rset.getString("JAVACHIP_NAME"));
                 System.out.println("=====================================");
-                System.out.println("현재근무현황"+"   " + rset.getString("WORK_STATUS"));
-                System.out.println("출근정보" +"  "+rset.getString("ARRIVE_INFO") );
-                System.out.println("퇴근정보" + (rset.getBoolean("LEAVE_INFO") == true ? "   퇴근" :  "  미퇴근"));
-
-
+                System.out.println("현재근무현황" + "   " + rset.getString("WORK_STATUS"));
+                System.out.println("출근정보" + "  " + rset.getString("ARRIVE_INFO"));
+                System.out.println("퇴근정보" + (rset.getBoolean("LEAVE_INFO") == true ? "   퇴근" : "  미퇴근"));
 
 
             }
@@ -152,4 +145,56 @@ public class ManagerDAO {
 
 
     }
+
+
+    public void selectLeaveinfo() {
+
+        Connection con = getConnection();
+
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        ManagerDTO managerDTO = null;
+
+
+        String query = prop.getProperty("selectLeaveinfo");
+        // System.out.println(query);
+
+        try {
+            pstmt = con.prepareStatement(query);
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+
+                System.out.println("퇴근 정보 조회");
+                System.out.println("===========================");
+                System.out.println("사원번호" +"  "+ rset.getInt("JAVACHIP_CODE") +"  " + "사원이름"+"  " + rset.getString("JAVACHIP_NAME"));
+                System.out.println("                           ");
+                System.out.println("직책" +"  " + rset.getString("POSITION"));
+                System.out.println("                           ");
+                System.out.println("퇴근정보" + (rset.getBoolean("LEAVE_INFO") == true ? "   퇴근" : "  미퇴근"));
+                System.out.println("===========================");
+
+
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+
+        } finally {
+            close(con);
+            close(pstmt);
+            close(rset);
+        }
+    }
+
 }
+
+
+
+
+
+
+
+

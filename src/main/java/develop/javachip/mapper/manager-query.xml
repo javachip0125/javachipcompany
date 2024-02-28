@@ -73,4 +73,13 @@
         FROM ATTENDANCE_INFO
         WHERE JAVACHIP_CODE = ?
     </entry>
+    <entry key="selectLeaveinfo">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.LEAVE_INFO
+        FROM JAVACHIP_MEMBER A
+        JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+    </entry>
 </properties>
