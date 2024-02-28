@@ -14,40 +14,13 @@
               - 조회 결과 : 코드, 이름, 직책-->
     <entry key="selectWorkStatus">
         SELECT
-               A.WORK_STATUS,
-               B.JAVACHIP_CODE,
-               B.JAVACHIP_POSITION,
-               B.JAVACHIP_NAME
-          FROM ATTENDANCE_INFO A
-               JAVACHIP_MEMBER B
-
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.WORK_STATUS
+        FROM JAVACHIP_MEMBER A
+        JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE;
     </entry>
-
-<!--    <entry key="selectAllCategoryList">-->
-<!--        SELECT A.CATEGORY_CODE-->
-<!--        , A.CATEGORY_NAME-->
-<!--        FROM TBL_CATEGORY A-->
-<!--    </entry>-->
-
-<!--    <entry key="insertMenu">-->
-<!--        INSERT-->
-<!--        INTO TBL_MENU-->
-<!--        (-->
-<!--        MENU_CODE-->
-<!--        , MENU_NAME-->
-<!--        , MENU_PRICE-->
-<!--        , CATEGORY_CODE-->
-<!--        , ORDERABLE_STATUS-->
-<!--        )-->
-<!--        VALUES-->
-<!--        (-->
-<!--        ?-->
-<!--        , ?-->
-<!--        , ?-->
-<!--        , ?-->
-<!--        , ?-->
-<!--        )-->
-<!--    </entry>-->
 
 <!--    한영님 관리자 조회, 삭제 -->
     <entry key="login">

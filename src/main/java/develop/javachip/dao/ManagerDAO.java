@@ -83,7 +83,39 @@ public class ManagerDAO {
             close(rset);
             close(pstmt);
         }
+    }
+    // 전체 직원 당일 근무 현황 조회
+    public void selectWorkStatus(Connection con) {
 
+        PreparedStatement pstmt = null;
 
+        ResultSet rset = null;
+
+        String query = prop.getProperty("selectWorkStatus");
+        try {
+
+            pstmt = con.prepareStatement(query);
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+
+                System.out.println();
+                System.out.println("=================================");
+                System.out.println("사원 번호 : " + rset.getString("JAVACHIP_CODE"));
+                System.out.println("사원 이름 : " + rset.getString("JAVACHIP_NAME"));
+                System.out.println("사원 직책 : " + rset.getString("POSITION"));
+                System.out.println("---------------------------------");
+                System.out.print(" - 당일 근무현황 : " + rset.getString("WORK_STATUS"));
+
+            }
+            System.out.println();
+            System.out.println("=================================");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
     }
 }

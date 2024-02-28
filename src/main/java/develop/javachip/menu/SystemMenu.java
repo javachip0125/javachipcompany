@@ -122,6 +122,7 @@ public class SystemMenu {
 
           case 4 : // 당일근무현황
             System.out.println("당일근무현황 메뉴입니다.");
+            workStatus();
 
             break;
 
@@ -153,7 +154,8 @@ public class SystemMenu {
 
   // 당일근무현황 : 전체직원에 대한 조회 만들기
   public void workStatus(){
-    System.out.println("전체직원에 대한 ");
+    System.out.println("전체직원에 대한 당일근무현황 조회한 결과입니다.");
+    managerDAO.selectWorkStatus(con);
   }
 
 
