@@ -9,9 +9,11 @@ import java.sql.*;
 import java.util.*;
 
 import static develop.javachip.common.JDBCTemplate.close;
+import static develop.javachip.common.JDBCTemplate.getConnection;
 
 public class ManagerDAO {
 
+    Connection con = getConnection();
     Scanner sc = new Scanner(System.in);
     boolean logout;
 
@@ -86,4 +88,82 @@ public class ManagerDAO {
 
 
     }
+
+    //관리자 > 모든 직원 오늘 일정 확인
+    public void selectAllTodaySchedule(String dayName) {
+        //해당 요일 매개변수로 모든 직원의 해당 요일 일정 확인
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        String query = prop.getProperty("selectTodaySchedule");
+
+      try {
+        pstmt = con.prepareStatement(query);
+        pstmt.setString(1, dayName);
+        pstmt.setString(2, dayName);
+        rset = pstmt.executeQuery();
+          System.out.println();
+          System.out.println("[전체 사원의 " + dayName + " 일정 목록]");
+          System.out.println("―――――――――――――――――――――――――――");
+          System.out.println("│  사원번호  |  사원이름  |   직책   |   일정   │");
+          System.out.println("―――――――――――――――――――――――――――");
+
+          while (rset.next()) {
+
+              System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                      + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
+                      + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
+                      + (rset.getString(dayName) == null ? ("  정상근무 ") : "   " + rset.getString(dayName) + "   ") + "│"
+              );
+            System.out.println("--------------------------------------------");
+
+          }
+
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      } finally {
+        close(pstmt);
+        close(rset);
+      }
+
+    }
+
+  //관리자 > 모든 직원 다음주 일정 확인
+  public void selectAllNextSchedule() {
+    //해당 요일 매개변수로 모든 직원의 해당 요일 일정 확인
+    PreparedStatement pstmt = null;
+    ResultSet rset= null;
+
+    String query1 = prop.getProperty("selectEmployeeInfo");
+
+    try {
+      pstmt = con.prepareStatement(query1);
+      rset = pstmt.executeQuery();
+      System.out.println();
+      System.out.println("[전체 사원의 다음주 일정 목록]");
+      System.out.println("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+      System.out.println("│  사원번호  |  사원이름  |   직책   |   월요일   |   화요일   |   수요일   |   목요일   |   금요일   │");
+      System.out.println("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+
+      while (rset.next()) {
+        System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
+                + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
+                + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
+                + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
+                + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
+                + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
+                + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "│"
+        );
+
+        System.out.println("-------------------------------------------------------------------------------------------");
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } finally {
+      close(pstmt);
+      close(rset);
+    }
+
+  }
 }

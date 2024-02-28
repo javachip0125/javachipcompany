@@ -10,32 +10,6 @@
         FROM ATTENDANCE_INFO
     </entry>
 
-<!--    <entry key="selectAllCategoryList">-->
-<!--        SELECT A.CATEGORY_CODE-->
-<!--        , A.CATEGORY_NAME-->
-<!--        FROM TBL_CATEGORY A-->
-<!--    </entry>-->
-
-<!--    <entry key="insertMenu">-->
-<!--        INSERT-->
-<!--        INTO TBL_MENU-->
-<!--        (-->
-<!--        MENU_CODE-->
-<!--        , MENU_NAME-->
-<!--        , MENU_PRICE-->
-<!--        , CATEGORY_CODE-->
-<!--        , ORDERABLE_STATUS-->
-<!--        )-->
-<!--        VALUES-->
-<!--        (-->
-<!--        ?-->
-<!--        , ?-->
-<!--        , ?-->
-<!--        , ?-->
-<!--        , ?-->
-<!--        )-->
-<!--    </entry>-->
-
 <!--    한영님 관리자 조회, 삭제 -->
     <entry key="login">
         SELECT USER_ID
@@ -73,4 +47,32 @@
         FROM ATTENDANCE_INFO
         WHERE JAVACHIP_CODE = ?
     </entry>
+
+    <!-- 전체직원의 오늘 or 이번주 해당 요일 일정 조회 -->
+    <entry key="selectTodaySchedule">
+        SELECT
+              A.JAVACHIP_CODE,
+              A.JAVACHIP_NAME,
+              A.POSITION,
+              B.DAY_SCHEDULE AS ?
+        FROM JAVACHIP_MEMBER A
+        JOIN WORK_SCHEDULE B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+        WHERE B.DAYS = ?
+    </entry>
+
+    <!-- 전체직원의 다음주 조회 -->
+    <entry key="selectEmployeeInfo">
+        SELECT
+                A.JAVACHIP_CODE,
+                A.JAVACHIP_NAME,
+                A.POSITION,
+                B.DAY_SCHEDULE
+        FROM JAVACHIP_MEMBER A
+        JOIN WORK_SCHEDULE B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+    </entry>
+<!--    <entry key="selectNextSchedule">-->
+<!--        SELECT-->
+<!--              DAY_SCHEDULE-->
+<!--        FROM WORK_SCHEDULE_NEXTWEEK-->
+<!--    </entry>-->
 </properties>
