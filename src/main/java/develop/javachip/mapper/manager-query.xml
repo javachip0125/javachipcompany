@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment/>
+    <!-- 관리자 메뉴 관련 Query -->
+    <!--  전체 조회  -->
+    <entry key="selectAllPeople">
+        SELECT
+              *
+        FROM ATTENDANCE_INFO
+    </entry>
+
+<!--    해빈 / 전체 직원의 당일근무현황 조회 하는 query 작성
+              - 조회 결과 : 코드, 이름, 직책-->
+    <entry key="selectWorkStatus">
+        SELECT
+               A.JAVACHIP_CODE,
+               A.JAVACHIP_NAME,
+               A.POSITION,
+               B.WORK_STATUS
+          FROM JAVACHIP_MEMBER A
+          JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE;
+    </entry>
+
+    <entry key="selectArriveInfo">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.ARRIVE_INFO
+        FROM JAVACHIP_MEMBER A
+        JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE;
+    </entry>
+
+<!--    한영님 관리자 조회, 삭제 -->
+    <entry key="login">
+        SELECT USER_ID
+        USER_PW
+        FROM JAVACHIP_MEMBER
+    </entry>
+
+    <entry key="DELETE_ATTENDANCE_INFO ">
+        DELETE
+        FROM ATTENDANCE_INFO
+        WHERE JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="DELETE_JAVACHIP_MEMBER">
+        DELETE
+        FROM JAVACHIP_MEMBER
+        WHERE JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="DELETE_WORK_SCHEDULE">
+        DELETE
+        FROM WORK_SCHEDULE
+        WHERE JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="EMPLOYEE_INQUIRY">
+        SELECT
+        JAVACHIP_CODE,
+        WORK_HOUR,
+        REMAIN_VACATION,
+        WORK_STATUS,
+        ARRIVE_INFO,
+        LEAVE_INFO,
+        WORK_SCHEDULE
+        FROM ATTENDANCE_INFO
+        WHERE JAVACHIP_CODE = ?
+    </entry>
+
+    <!--    재원-->
+    <entry key="selectLeaveInfo">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.LEAVE_INFO
+        FROM JAVACHIP_MEMBER A
+        JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+    </entry>
+
+    <entry key="remainVacation">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.REMAIN_VACATION
+        FROM JAVACHIP_MEMBER A
+        JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+    </entry>
+
+    <!--    퇴사자 삭제 -->
+    <entry key="deleteMember">
+        DELETE WS, WSN, ATI
+        FROM work_schedule  WS
+        JOIN work_schedule_NEXTWEEK WSN
+        JOIN ATTENDANCE_INFO ATI
+        WHERE WS.JAVACHIP_CODE = WSN.JAVACHIP_CODE
+        AND WSN.JAVACHIP_CODE = ATI.JAVACHIP_CODE
+        AND WS.JAVACHIP_CODE = ?;
+    </entry>
+
+    <entry key="deleteJavachipMember">
+        DELETE FROM JAVACHIP_MEMBER
+        WHERE JAVACHIP_CODE = ?;
+    </entry>
+
+    <entry key="remainVacation">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.REMAIN_VACATION
+        FROM JAVACHIP_MEMBER A
+        JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+    </entry>
+    <!-- 전체직원의 오늘 or 이번주 해당 요일 일정 조회 -->
+    <entry key="selectTodaySchedule">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.DAY_SCHEDULE AS ?
+        FROM JAVACHIP_MEMBER A
+        JOIN WORK_SCHEDULE B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+        WHERE B.DAYS = ?
+    </entry>
+
+    <!-- 전체직원의 다음주 조회 -->
+    <entry key="selectEmployeeInfo">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.DAY_SCHEDULE
+        FROM JAVACHIP_MEMBER A
+        JOIN WORK_SCHEDULE B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+    </entry>
+    <!--    <entry key="selectNextSchedule">-->
+    <!--        SELECT-->
+    <!--              DAY_SCHEDULE-->
+    <!--        FROM WORK_SCHEDULE_NEXTWEEK-->
+    <!--    </entry>-->
+</properties>
