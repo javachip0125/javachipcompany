@@ -224,20 +224,37 @@ public class ManagerDAO {
     }
     public void deleteMember(){
         Connection con = getConnection();
+        System.out.println("―――――――― 퇴사자 명단 ――――――――");
+        System.out.println("|  사원번호  |  사원이름  |    직  책    |");
+        System.out.println("|    10    |   유재석   |     부장     |");
+        System.out.println("|    13    |   김종국   |     인턴     |");
+        System.out.println("|    15    |   송지효   |     사원     |");
+        System.out.println("―――――――――――――――――――――――");
+
+        System.out.print("삭제할 직원의 사원번호을 입력해주세요. :");
+        int memberNum = sc.nextInt();
 
         PreparedStatement pstmt = null;
+        PreparedStatement pstmt1 = null;
+
         int result = 0;
+        int result1 = 0;
+
         String query = prop.getProperty("deleteMember");
+        String query1 = prop.getProperty("deleteJavachipMember");
+
+        System.out.println("사원번호 " + memberNum + "번의 정보가 삭제되었습니다.");
+        System.out.println("―――――――――――――――――――――――");
 
         try {
             pstmt = con.prepareStatement(query);
+            pstmt1 = con.prepareStatement(query1);
 
-            pstmt.setInt(1, 24);
-            pstmt.setInt(2, 24);
-            pstmt.setInt(3, 24);
-            pstmt.setInt(4, 24);
+            pstmt.setInt(1, memberNum);
+            pstmt1.setInt(1, memberNum);
 
             result = pstmt.executeUpdate();
+            result1 = pstmt1.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

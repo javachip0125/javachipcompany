@@ -93,10 +93,18 @@
 
     <!--    퇴사자 삭제 -->
     <entry key="deleteMember">
-        DELETE FROM ATTENDANCE_INFO WHERE JAVACHIP_CODE = ?
-        DELETE FROM WORK_SCHEDULE WHERE JAVACHIP_CODE = ?
-        DELETE FROM WORK_SCHEDULE_NEXTWEEK WHERE JAVACHIP_CODE = ?
-        DELETE FROM JAVACHIP_MEMBER WHERE JAVACHIP_CODE = ?
+        DELETE WS, WSN, ATI
+        FROM work_schedule  WS
+        JOIN work_schedule_NEXTWEEK WSN
+        JOIN ATTENDANCE_INFO ATI
+        WHERE WS.JAVACHIP_CODE = WSN.JAVACHIP_CODE
+        AND WSN.JAVACHIP_CODE = ATI.JAVACHIP_CODE
+        AND WS.JAVACHIP_CODE = ?;
+    </entry>
+
+    <entry key="deleteJavachipMember">
+        DELETE FROM JAVACHIP_MEMBER
+        WHERE JAVACHIP_CODE = ?;
     </entry>
 
     <entry key="remainVacation">
