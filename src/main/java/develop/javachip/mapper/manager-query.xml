@@ -80,4 +80,22 @@
         FROM JAVACHIP_MEMBER A
         JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
     </entry>
+
+    <!--    퇴사자 삭제 -->
+    <entry key="deleteMember">
+        DELETE FROM ATTENDANCE_INFO WHERE JAVACHIP_CODE = ?
+        DELETE FROM WORK_SCHEDULE WHERE JAVACHIP_CODE = ?
+        DELETE FROM WORK_SCHEDULE_NEXTWEEK WHERE JAVACHIP_CODE = ?
+        DELETE FROM JAVACHIP_MEMBER WHERE JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="remainVacation">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.REMAIN_VACATION
+        FROM JAVACHIP_MEMBER A
+        JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+    </entry>
 </properties>

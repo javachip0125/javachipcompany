@@ -26,7 +26,7 @@ public class ManagerDAO {
             throw new RuntimeException(e);
         }
     }
-
+    // 사번기준으로 정보 조회
     public void EMPLOYEE_INQUIRY(Connection con) {
 
         PreparedStatement pstmt = null;
@@ -86,6 +86,7 @@ public class ManagerDAO {
             close(pstmt);
         }
     }
+
     // 전체 직원 당일 근무 현황 조회
     public void selectWorkStatus(Connection con) {
 
@@ -192,6 +193,28 @@ public class ManagerDAO {
             close(rset);
         }
     }
+    public void deleteMember(){
+        Connection con = getConnection();
+
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String query = prop.getProperty("deleteMember");
+
+        try {
+            pstmt = con.prepareStatement(query);
+
+            pstmt.setInt(1, 24);
+            pstmt.setInt(2, 24);
+            pstmt.setInt(3, 24);
+            pstmt.setInt(4, 24);
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     public void remainVacation() {
 
         Connection con = getConnection();
@@ -200,8 +223,7 @@ public class ManagerDAO {
 
         String query = prop.getProperty("remainVacation");
 
-        try {
-            pstmt = con.prepareStatement(query);
+        try { pstmt = con.prepareStatement(query);
             rset = pstmt.executeQuery();
 
             System.out.println("―――――――――――――――――――――――――――――");
@@ -210,22 +232,20 @@ public class ManagerDAO {
 
             while (rset.next()) {
                 System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
-                                + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
-                                + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
-                                + "     "+(rset.getInt("REMAIN_VACATION") >= 10 ? rset.getInt("REMAIN_VACATION")+ "    ": rset.getInt("REMAIN_VACATION") + "     ") + "│");
+                        + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
+                        + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
+                        + "     "+(rset.getInt("REMAIN_VACATION") >= 10 ? rset.getInt("REMAIN_VACATION")+ "    ": rset.getInt("REMAIN_VACATION") + "     ") + "│");
                 System.out.println("―――――――――――――――――――――――――――――");
 
             }
 
-
         } catch (SQLException e) {
             e.printStackTrace();
 
-        }finally {
+        } finally {
             close(con);
             close(pstmt);
             close(rset);
         }
-
     }
 }

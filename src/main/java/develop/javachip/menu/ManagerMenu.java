@@ -66,6 +66,7 @@ public class ManagerMenu {
 
                     case 7: // 퇴사자 삭제
                         System.out.println("퇴사자 삭제 메뉴입니다..");
+                        managerDAO.deleteMember();
                         break;
 
                     case 8: // 로그아웃
