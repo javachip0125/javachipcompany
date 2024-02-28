@@ -10,6 +10,19 @@
         FROM ATTENDANCE_INFO
     </entry>
 
+<!--    해빈 / 전체 직원의 당일근무현황 조회 하는 query 작성
+              - 조회 결과 : 코드, 이름, 직책-->
+    <entry key="selectWorkStatus">
+        SELECT
+               A.WORK_STATUS,
+               B.JAVACHIP_CODE,
+               B.JAVACHIP_POSITION,
+               B.JAVACHIP_NAME
+          FROM ATTENDANCE_INFO A
+               JAVACHIP_MEMBER B
+
+    </entry>
+
 <!--    <entry key="selectAllCategoryList">-->
 <!--        SELECT A.CATEGORY_CODE-->
 <!--        , A.CATEGORY_NAME-->

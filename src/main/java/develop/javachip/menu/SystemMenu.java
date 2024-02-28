@@ -122,6 +122,7 @@ public class SystemMenu {
 
           case 4 : // 당일근무현황
             System.out.println("당일근무현황 메뉴입니다.");
+
             break;
 
           case 5 : // 퇴근정보 조회
@@ -150,7 +151,11 @@ public class SystemMenu {
   // 출근정보
 
 
-  // 당일근무현황
+  // 당일근무현황 : 전체직원에 대한 조회 만들기
+  public void workStatus(){
+    System.out.println("전체직원에 대한 ");
+  }
+
 
 
   // 퇴근정보 조회
