@@ -2,6 +2,7 @@ package develop.javachip.menu;
 
 import develop.javachip.dao.ManagerDAO;
 import develop.javachip.dao.StaffDAO;
+import develop.javachip.dto.ManagerDTO;
 import develop.javachip.dto.StaffDTO;
 
 
@@ -21,6 +22,7 @@ public class SystemMenu {
   StaffDAO staffDAO = new StaffDAO();
   ManagerMenu managerMenu = new ManagerMenu();
   StaffMenu staffMenu = new StaffMenu();
+  ManagerDTO managerDTO = new ManagerDTO();
 
   public void loginMenu() {
     //scanner = new Scanner(System.in);
@@ -81,7 +83,7 @@ public class SystemMenu {
     System.out.println("       오늘의 임직원 근태 현황       ");
     System.out.println("---------------------------------");
 
-    managerMenu.managerMenu();
+    managerMenu.managerMenu(managerDTO);
   }
 
 

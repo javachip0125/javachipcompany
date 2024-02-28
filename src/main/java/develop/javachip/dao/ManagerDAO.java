@@ -385,25 +385,29 @@ public class ManagerDAO {
 
         System.out.println(" 출근을 입력해주세요 :");
         String arrive = sc.nextLine();
-
-        PreparedStatement pstmt = null;
         int result1 = 0;
+        if (arrive.equals("출근")) {
+            arriveleave = false;  // 출근 상태로 바뀐다.
+            System.out.println("근태 정보가 출근으로 바뀌었습니다.");
+            PreparedStatement pstmt = null;
 
-        String query = prop.getProperty("updateArriveInfo");
+            String query = prop.getProperty("updateArriveInfo");
 
-        try {
+            try {
 
-            pstmt = con.prepareStatement(query);
-            pstmt.setString(1, arrive);
-            pstmt.setInt(2, managerDTO.getStaffCode());
+                pstmt = con.prepareStatement(query);
+                pstmt.setString(1, arrive);
 
-            result1 = pstmt.executeUpdate();
-            System.out.println(result1);
+                result1 = pstmt.executeUpdate();
+                System.out.println(result1);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            close(pstmt);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                close(pstmt);
+            }
+        } else {
+            System.out.println("잘못된 입력값입니다.");
         }
 
         return result1;
@@ -419,12 +423,10 @@ public class ManagerDAO {
             arriveleave = true;
             PreparedStatement pstmt = null;
 
-
             String query = prop.getProperty("updateLeaveInfo");
             try {
                 pstmt = con.prepareStatement(query);
                 pstmt.setBoolean(1, arriveleave);
-                pstmt.setInt(2, managerDTO.getStaffCode());
 
                 result2 = pstmt.executeUpdate();
             } catch (SQLException e) {
@@ -433,7 +435,9 @@ public class ManagerDAO {
                 close(pstmt);
             }
 
-        } return result2;
-
+        }else {
+            System.out.println("잘못된 입력값입니다.");
+        }
+        return result2;
     }
 }

@@ -41,7 +41,7 @@
         ARRIVE_INFO = ?,
         LEAVE_INFO = false
 
-        WHERE  JAVACHIP_CODE = ?
+        WHERE  JAVACHIP_CODE = 7
     </entry>
 
     <entry key="updateLeaveInfo">
@@ -51,7 +51,7 @@
         SET
         LEAVE_INFO = ?
 
-        WHERE  JAVACHIP_CODE = ?
+        WHERE  JAVACHIP_CODE = 7
     </entry>
 
 <!--    한영님 관리자 조회, 삭제 -->
