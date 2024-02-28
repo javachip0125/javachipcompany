@@ -13,8 +13,9 @@ import static develop.javachip.common.JDBCTemplate.close;
 import static develop.javachip.common.JDBCTemplate.getConnection;
 
 public class ManagerDAO {
-
+    private boolean arriveleave;
     Scanner sc = new Scanner(System.in);
+    ManagerDTO managerDTO = new ManagerDTO();
     boolean logout;
 
     private Properties prop = new Properties();
@@ -26,6 +27,7 @@ public class ManagerDAO {
             throw new RuntimeException(e);
         }
     }
+
     // 사번기준으로 정보 조회
     public void EMPLOYEE_INQUIRY(Connection con) {
 
@@ -58,7 +60,7 @@ public class ManagerDAO {
                 System.out.println("사원 번호 : " + rset.getString("JAVACHIP_CODE"));
                 System.out.println("---------------------------------");
                 selectedEmp.setWorkHour(rset.getInt("WORK_HOUR"));
-                System.out.println(" - 총 근무 시간 : " + rset.getInt("WORK_HOUR")+ "시간");
+                System.out.println(" - 총 근무 시간 : " + rset.getInt("WORK_HOUR") + "시간");
 
                 selectedEmp.setRemainVacation(rset.getInt("REMAIN_VACATION"));
                 System.out.println(" - 남은 연차 : " + rset.getInt("REMAIN_VACATION"));
@@ -121,8 +123,9 @@ public class ManagerDAO {
             close(pstmt);
         }
     }
+
     // 출근 정보 조회
-    public void selectArriveInfo(Connection con){
+    public void selectArriveInfo(Connection con) {
         PreparedStatement pstmt = null;
 
         ResultSet rset = null;
@@ -136,20 +139,21 @@ public class ManagerDAO {
             System.out.println("│  사원번호  |  사원이름  |   직책   |   출근정보   │");
             System.out.println("―――――――――――――――――――――――――――――");
 
-                while (rset.next()) {
+            while (rset.next()) {
 
-                    System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
-                            + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
-                            + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + "  " : rset.getString("POSITION") + "   ") + "|"
-                            + "     " + ("출근".equals(rset.getString("ARRIVE_INFO")) ? "출근    " : "결근".equals(rset.getString("ARRIVE_INFO")) ? "결근    " : "미입력  ") + "|");
+                System.out.println("│     " + (rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                        + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
+                        + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + "  " : rset.getString("POSITION") + "   ") + "|"
+                        + "     " + ("출근".equals(rset.getString("ARRIVE_INFO")) ? "출근    " : "결근".equals(rset.getString("ARRIVE_INFO")) ? "결근    " : "미입력  ") + "|");
 
-                    System.out.println("―――――――――――――――――――――――――――――");
-                }
+                System.out.println("―――――――――――――――――――――――――――――");
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
     public void Check_or_employee() {
 
         Connection con = getConnection();
@@ -203,10 +207,10 @@ public class ManagerDAO {
             System.out.println("―――――――――――――――――――――――――――");
             while (rset.next()) {
 
-                System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                System.out.println("│     " + (rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
                         + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
                         + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + "  " : rset.getString("POSITION") + "   ") + "|"
-                        +(rset.getBoolean("LEAVE_INFO") == true ? "   퇴근   |" : "  미퇴근  |"));
+                        + (rset.getBoolean("LEAVE_INFO") == true ? "   퇴근   |" : "  미퇴근  |"));
                 System.out.println("―――――――――――――――――――――――――――");
 
 
@@ -222,7 +226,8 @@ public class ManagerDAO {
             close(rset);
         }
     }
-    public void deleteMember(){
+
+    public void deleteMember() {
         Connection con = getConnection();
         System.out.println("―――――――― 퇴사자 명단 ――――――――");
         System.out.println("|  사원번호  |  사원이름  |    직  책    |");
@@ -261,6 +266,7 @@ public class ManagerDAO {
         }
 
     }
+
     public void remainVacation() {
 
         Connection con = getConnection();
@@ -269,7 +275,8 @@ public class ManagerDAO {
 
         String query = prop.getProperty("remainVacation");
 
-        try { pstmt = con.prepareStatement(query);
+        try {
+            pstmt = con.prepareStatement(query);
             rset = pstmt.executeQuery();
 
             System.out.println("―――――――――――――――――――――――――――――");
@@ -277,10 +284,10 @@ public class ManagerDAO {
             System.out.println("―――――――――――――――――――――――――――――");
 
             while (rset.next()) {
-                System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                System.out.println("│     " + (rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
                         + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
                         + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
-                        + "     "+(rset.getInt("REMAIN_VACATION") >= 10 ? rset.getInt("REMAIN_VACATION")+ "    ": rset.getInt("REMAIN_VACATION") + "     ") + "│");
+                        + "     " + (rset.getInt("REMAIN_VACATION") >= 10 ? rset.getInt("REMAIN_VACATION") + "    " : rset.getInt("REMAIN_VACATION") + "     ") + "│");
                 System.out.println("―――――――――――――――――――――――――――――");
 
             }
@@ -294,6 +301,7 @@ public class ManagerDAO {
             close(rset);
         }
     }
+
     //관리자 > 모든 직원 오늘 일정 확인
     public void selectAllTodaySchedule(Connection con, String dayName) {
         //해당 요일 매개변수로 모든 직원의 해당 요일 일정 확인
@@ -315,7 +323,7 @@ public class ManagerDAO {
 
             while (rset.next()) {
 
-                System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                System.out.println("│     " + (rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
                         + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
                         + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
                         + (rset.getString(dayName) == null ? ("  정상근무 ") : "   " + rset.getString(dayName) + "   ") + "│"
@@ -337,7 +345,7 @@ public class ManagerDAO {
     public void selectAllNextSchedule(Connection con) {
         //해당 요일 매개변수로 모든 직원의 해당 요일 일정 확인
         PreparedStatement pstmt = null;
-        ResultSet rset= null;
+        ResultSet rset = null;
 
         String query1 = prop.getProperty("selectEmployeeInfo");
 
@@ -351,7 +359,7 @@ public class ManagerDAO {
             System.out.println("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
 
             while (rset.next()) {
-                System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                System.out.println("│     " + (rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
                         + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
                         + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
                         + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
@@ -369,6 +377,63 @@ public class ManagerDAO {
             close(pstmt);
             close(rset);
         }
+
+    }
+
+    // 직원의 출퇴근 정보 변경
+    public int updateArriveInfo(Connection con) {
+
+        System.out.println(" 출근을 입력해주세요 :");
+        String arrive = sc.nextLine();
+
+        PreparedStatement pstmt = null;
+        int result1 = 0;
+
+        String query = prop.getProperty("updateArriveInfo");
+
+        try {
+
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, arrive);
+            pstmt.setInt(2, managerDTO.getStaffCode());
+
+            result1 = pstmt.executeUpdate();
+            System.out.println(result1);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(pstmt);
+        }
+
+        return result1;
+    }
+
+    public int updateLeaveInfo(Connection con) {
+
+        System.out.println(" 퇴근을 입력해주세요 :");
+        String leave = sc.nextLine();
+        int result2 = 0;
+        if (leave.equals("퇴근")) {
+            System.out.println("근태 정보가 퇴근으로 바뀌었습니다.");
+            arriveleave = true;
+            PreparedStatement pstmt = null;
+
+
+            String query = prop.getProperty("updateLeaveInfo");
+            try {
+                pstmt = con.prepareStatement(query);
+                pstmt.setBoolean(1, arriveleave);
+                pstmt.setInt(2, managerDTO.getStaffCode());
+
+                result2 = pstmt.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                close(pstmt);
+            }
+
+        } return result2;
 
     }
 }

@@ -1,6 +1,8 @@
 package develop.javachip.menu;
 
 import develop.javachip.dao.ManagerDAO;
+import develop.javachip.dto.ManagerDTO;
+import develop.javachip.dto.StaffDTO;
 
 import java.sql.Connection;
 import java.util.InputMismatchException;
@@ -14,20 +16,22 @@ public class ManagerMenu {
     ManagerDAO managerDAO = new ManagerDAO();
 
     //관리자 메뉴
-    public void managerMenu() {
+    public void managerMenu(ManagerDTO managerDTO) {
 
         while (true) {
             // 전체 직원 근태정보 조회 내용 출력
             System.out.println("        |    메뉴 목록    |         ");
             System.out.println();
-            System.out.println("1. 개별 직원 근태 현황");
-            System.out.println("2. 일정정보");
-            System.out.println("3. 출근정보");
-            System.out.println("4. 당일 근무현황");
-            System.out.println("5. 연차정보");
-            System.out.println("6. 퇴근정보");
-            System.out.println("7. 퇴사자 삭제");
-            System.out.println("8. 로그아웃");
+            System.out.println("1. 출근하기");
+            System.out.println("2. 개별 직원 근태 현황");
+            System.out.println("3. 일정정보");
+            System.out.println("4. 출근정보");
+            System.out.println("5. 당일 근무현황");
+            System.out.println("6. 연차정보");
+            System.out.println("7. 퇴근정보");
+            System.out.println("8. 퇴사자 삭제");
+            System.out.println("9. 퇴근하기");
+            System.out.println("0. 로그아웃");
             System.out.println();
             System.out.println("=================================");
             System.out.print("메뉴를 선택하세요 : ");
@@ -36,42 +40,52 @@ public class ManagerMenu {
                 menuNum = scanner.nextInt();
 
                 switch (menuNum) {// 올바른 메뉴를 입력한 경우 해당 메뉴 메소드 호출
-                    case 1: // 개별 직원 근태 현황
+                    case 1: // 출근하기
+                        System.out.println("출근하기 메뉴입니다.");
+                        managerDAO.updateArriveInfo(con);
+                        break;
+
+                    case 2: // 개별 직원 근태 현황
                         System.out.println("개별 직원 근태 현황 조회 메뉴입니다.");
                         managerDAO.EMPLOYEE_INQUIRY(con);
                         break;
 
-                    case 2: // 일정정보
+                    case 3: // 일정정보
                         System.out.println("일정정보 메뉴입니다.");
                         showSchedule();
                         break;
 
-                    case 3: // 출근정보
+                    case 4: // 출근정보
                         System.out.println("출근정보 메뉴입니다.");
                         managerDAO.selectArriveInfo(con);
                         break;
 
-                    case 4: // 당일근무현황
+                    case 5: // 당일근무현황
                         System.out.println("당일근무현황 메뉴입니다.");
                         managerDAO.selectWorkStatus(con);
                         break;
 
-                    case 5: // 연차정보
+                    case 6: // 연차정보
                         System.out.println("연차정보 메뉴입니다.");
                         managerDAO.remainVacation();
                         break;
                         
-                    case 6: // 퇴근정보
+                    case 7: // 퇴근정보
                         System.out.println("퇴근정보 메뉴입니다.");
                         managerDAO.selectLeaveInfo();
                         break;
 
-                    case 7: // 퇴사자 삭제
+                    case 8: // 퇴사자 삭제
                         System.out.println("퇴사자 삭제 메뉴입니다..");
                         managerDAO.deleteMember();
                         break;
 
-                    case 8: // 로그아웃
+                    case 9: // 퇴근하기
+                        System.out.println("퇴근하기 메뉴입니다.");
+                        managerDAO.updateLeaveInfo(con);
+                        break;
+
+                    case 0: // 로그아웃
                         System.out.println("로그아웃을 진행합니다.");
                         break;
 
@@ -79,7 +93,7 @@ public class ManagerMenu {
                         System.out.println("메뉴를 잘못 선택했습니다. 다시 선택해주세요.");
                         break;
                 }
-                if (menuNum == 8){
+                if (menuNum == 0){
                     System.out.println("로그아웃이 완료되었습니다.");
                     break;
                 }

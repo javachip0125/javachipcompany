@@ -32,6 +32,28 @@
         JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE;
     </entry>
 
+<!-- 직원의 출퇴근 정보 업데이트-->
+    <entry key="updateArriveInfo">
+        UPDATE
+        ATTENDANCE_INFO
+
+        SET
+        ARRIVE_INFO = ?,
+        LEAVE_INFO = false
+
+        WHERE  JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="updateLeaveInfo">
+        UPDATE
+        ATTENDANCE_INFO
+
+        SET
+        LEAVE_INFO = ?
+
+        WHERE  JAVACHIP_CODE = ?
+    </entry>
+
 <!--    한영님 관리자 조회, 삭제 -->
     <entry key="login">
         SELECT USER_ID
