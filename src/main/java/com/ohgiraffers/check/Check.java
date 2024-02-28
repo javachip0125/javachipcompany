@@ -19,7 +19,7 @@ public class Check {
         Connection con = getConnection();
 
         ManagerDAO dao = new ManagerDAO();
-        dao.Check_or_employee();
+//        dao.Check_or_employee();
 
 
 
