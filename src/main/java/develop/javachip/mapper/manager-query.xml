@@ -70,4 +70,13 @@
         FROM JAVACHIP_MEMBER A
         JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
     </entry>
+    <entry key="remainVacation">
+        SELECT
+        A.JAVACHIP_CODE,
+        A.JAVACHIP_NAME,
+        A.POSITION,
+        B.REMAIN_VACATION
+        FROM JAVACHIP_MEMBER A
+        JOIN ATTENDANCE_INFO B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
+    </entry>
 </properties>
