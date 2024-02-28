@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.*;
 
 import static develop.javachip.common.JDBCTemplate.close;
+import static develop.javachip.common.JDBCTemplate.getConnection;
 
 public class ManagerDAO {
 
@@ -85,5 +86,40 @@ public class ManagerDAO {
         }
 
 
+
     }
+
+    public void remainVacation() {
+
+       Connection con = getConnection();
+       PreparedStatement pstmt = null;
+       ResultSet rset = null;
+
+        String query = prop.getProperty("remainVacation");
+
+        try {
+            pstmt = con.prepareStatement(query);
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+                System.out.println("남은 연차 조회");
+                System.out.println("=====================");
+                System.out.println("사원번호" +"  "+rset.getInt("JAVACHIP_CODE")+"  "+"사원이름"+"  "+rset.getString("JAVACHIP_NAME"));
+                System.out.println("                     ");
+                System.out.println("직책" +"  "+rset.getString("POSITION"));
+                System.out.println("남은연차"+"  "+rset.getInt("REMAIN_VACATION"));
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }finally {
+            close(con);
+            close(pstmt);
+            close(rset);
+        }
+
+    }
+
 }
