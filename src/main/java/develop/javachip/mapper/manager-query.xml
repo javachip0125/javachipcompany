@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment/>
+    <!-- 관리자 메뉴 관련 Query -->
+    <!--  전체 조회  -->
+    <entry key="selectAllPeople">
+        SELECT
+              *
+        FROM ATTENDANCE_INFO
+    </entry>
+
+<!--    <entry key="selectAllCategoryList">-->
+<!--        SELECT A.CATEGORY_CODE-->
+<!--        , A.CATEGORY_NAME-->
+<!--        FROM TBL_CATEGORY A-->
+<!--    </entry>-->
+
+<!--    <entry key="insertMenu">-->
+<!--        INSERT-->
+<!--        INTO TBL_MENU-->
+<!--        (-->
+<!--        MENU_CODE-->
+<!--        , MENU_NAME-->
+<!--        , MENU_PRICE-->
+<!--        , CATEGORY_CODE-->
+<!--        , ORDERABLE_STATUS-->
+<!--        )-->
+<!--        VALUES-->
+<!--        (-->
+<!--        ?-->
+<!--        , ?-->
+<!--        , ?-->
+<!--        , ?-->
+<!--        , ?-->
+<!--        )-->
+<!--    </entry>-->
+
+<!--    한영님 관리자 조회, 삭제 -->
+    <entry key="login">
+        SELECT USER_ID
+        USER_PW
+        FROM JAVACHIP_MEMBER
+    </entry>
+
+    <entry key="DELETE_ATTENDANCE_INFO ">
+        DELETE
+        FROM ATTENDANCE_INFO
+        WHERE JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="DELETE_JAVACHIP_MEMBER">
+        DELETE
+        FROM JAVACHIP_MEMBER
+        WHERE JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="DELETE_WORK_SCHEDULE">
+        DELETE
+        FROM WORK_SCHEDULE
+        WHERE JAVACHIP_CODE = ?
+    </entry>
+
+    <entry key="EMPLOYEE_INQUIRY">
+        SELECT
+        JAVACHIP_CODE,
+        WORK_HOUR,
+        REMAIN_VACATION,
+        WORK_STATUS,
+        ARRIVE_INFO,
+        LEAVE_INFO,
+        WORK_SCHEDULE
+        FROM ATTENDANCE_INFO
+        WHERE JAVACHIP_CODE = ?
+    </entry>
+</properties>
