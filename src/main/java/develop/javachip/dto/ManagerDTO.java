@@ -1,34 +1,79 @@
 package develop.javachip.dto;
 
-public class ManagerDTO implements java.io.Serializable {
+public class ManagerDTO {
 
-    private int ManagerCode;
-    private int workHour;
-    private int remainVacation;
-    private String workStatus;
-    private String arriveInfo;
-    private boolean leaveInfo;
-    private String workSchedule;
+    // 근태정보 관련 필드
+    private int staffCode; //사원번호
+    private String staffID; //사원ID
+    private String staffPw; //사원PW
+    private String staffName;//사원이름
+    private String position;//직책
+    private int workHour;//총근무시간
+    private int remainVacation;//남은연차
+    private String workStatus; //당일근무현황
+    private String arriveInfo; //출근정보
+    private int leaveInfo; //퇴근정보
 
-    public ManagerDTO() {
-    }
+    // 일정정보 관련 필드
+    private String dayName;//요일 - 월/화/수/목/금
+    private String scheduleType;//일정타입 - 출장/외근/휴가
 
-    public ManagerDTO(int ManagerCode, int workHour, int remainVacation, String workStatus, String arriveInfo, boolean leaveInfo, String work_schedule) {
-        this.ManagerCode = ManagerCode;
+
+    public ManagerDTO(){}
+
+    public ManagerDTO(int staffCode, String staffID, String staffPw, String staffName, String position, int workHour, int remainVacation, String workStatus, String arriveInfo, int leaveInfo, String dayName, String scheduleType) {
+        this.staffCode = staffCode;
+        this.staffID = staffID;
+        this.staffPw = staffPw;
+        this.staffName = staffName;
+        this.position = position;
         this.workHour = workHour;
         this.remainVacation = remainVacation;
         this.workStatus = workStatus;
         this.arriveInfo = arriveInfo;
         this.leaveInfo = leaveInfo;
-        this.workSchedule = work_schedule;
+        this.dayName = dayName;
+        this.scheduleType = scheduleType;
     }
 
-    public int getManagerCode() {
-        return ManagerCode;
+    public int getStaffCode() {
+        return staffCode;
     }
 
-    public void setManagerCode(int ManagerCode) {
-        this.ManagerCode = ManagerCode;
+    public void setStaffCode(int staffCode) {
+        this.staffCode = staffCode;
+    }
+
+    public String getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(String staffID) {
+        this.staffID = staffID;
+    }
+
+    public String getStaffPw() {
+        return staffPw;
+    }
+
+    public void setStaffPw(String staffPw) {
+        this.staffPw = staffPw;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public int getWorkHour() {
@@ -63,32 +108,45 @@ public class ManagerDTO implements java.io.Serializable {
         this.arriveInfo = arriveInfo;
     }
 
-    public boolean isLeaveInfo() {
+    public int getLeaveInfo() {
         return leaveInfo;
     }
 
-    public void setLeaveInfo(boolean leaveInfo) {
+    public void setLeaveInfo(int leaveInfo) {
         this.leaveInfo = leaveInfo;
     }
 
-    public String getWork_schedule() {
-        return workSchedule;
+    public String getDayName() {
+        return dayName;
     }
 
-    public void setWork_schedule(String work_schedule) {
-        this.workSchedule = work_schedule;
+    public void setDayName(String dayName) {
+        this.dayName = dayName;
+    }
+
+    public String getScheduleType() {
+        return scheduleType;
+    }
+
+    public void setScheduleType(String scheduleType) {
+        this.scheduleType = scheduleType;
     }
 
     @Override
     public String toString() {
-        return "JavachipDTO{" +
-                "javachipCode='" + ManagerCode + '\'' +
+        return "StaffDTO{" +
+                "staffCode=" + staffCode +
+                ", staffID='" + staffID + '\'' +
+                ", staffPw='" + staffPw + '\'' +
+                ", staffName='" + staffName + '\'' +
+                ", position='" + position + '\'' +
                 ", workHour=" + workHour +
                 ", remainVacation=" + remainVacation +
                 ", workStatus='" + workStatus + '\'' +
                 ", arriveInfo='" + arriveInfo + '\'' +
-                ", leaveInfo=" + leaveInfo +
-                ", work_schedule='" + workSchedule + '\'' +
+                ", leaveInfo='" + leaveInfo + '\'' +
+                ", dayName='" + dayName + '\'' +
+                ", scheduleType='" + scheduleType + '\'' +
                 '}';
     }
 }
