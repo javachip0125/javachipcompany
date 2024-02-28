@@ -108,6 +108,7 @@ public class ManagerDAO {
                 System.out.println("                     ");
                 System.out.println("직책" +"  "+rset.getString("POSITION"));
                 System.out.println("남은연차"+"  "+rset.getInt("REMAIN_VACATION"));
+                System.out.println("=====================");
             }
 
 
