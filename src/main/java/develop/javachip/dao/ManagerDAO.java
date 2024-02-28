@@ -58,22 +58,22 @@ public class ManagerDAO {
                 System.out.println("사원 번호 : " + rset.getString("JAVACHIP_CODE"));
                 System.out.println("---------------------------------");
                 selectedEmp.setWorkHour(rset.getInt("WORK_HOUR"));
-                System.out.println(" - 총 근무 시간 : " + rset.getInt("WORK_HOUR"));
+                System.out.println(" - 총 근무 시간 : " + rset.getInt("WORK_HOUR")+ "시간");
 
                 selectedEmp.setRemainVacation(rset.getInt("REMAIN_VACATION"));
                 System.out.println(" - 남은 연차 : " + rset.getInt("REMAIN_VACATION"));
 
                 selectedEmp.setWorkStatus(rset.getString("WORK_STATUS"));
-                System.out.println(" - 작업 현황 : " + rset.getString("WORK_STATUS"));
+                System.out.println(" - 당일 근무현황 : " + rset.getString("WORK_STATUS"));
 
                 selectedEmp.setArriveInfo(rset.getString("ARRIVE_INFO"));
-                System.out.println(" - 출근 현황 : " + rset.getString("ARRIVE_INFO"));
+                System.out.println(" - 출근정보 : " + rset.getString("ARRIVE_INFO"));
 
                 selectedEmp.setLeaveInfo(rset.getInt("LEAVE_INFO"));
-                System.out.println(" - 퇴근 현황 : " + ((rset.getBoolean("LEAVE_INFO") == true) ? "퇴근함" : "퇴근안함"));
+                System.out.println(" - 퇴근정보 : " + ((rset.getBoolean("LEAVE_INFO") == true) ? "퇴근함" : "퇴근안함"));
 
                 selectedEmp.setWorkStatus(rset.getString("WORK_SCHEDULE"));
-                System.out.println(" - 근무 현황 : " + ((rset.getString("WORK_SCHEDULE")) == null ? "정상출근" : "출장".equals((rset.getString("WORK_SCHEDULE"))) ? "출장" : "외근".equals((rset.getString("WORK_SCHEDULE"))) ? "외근" : "휴가"));
+                System.out.println(" - 일정정보 : " + ((rset.getString("WORK_SCHEDULE")) == null ? "정상출근" : "출장".equals((rset.getString("WORK_SCHEDULE"))) ? "출장" : "외근".equals((rset.getString("WORK_SCHEDULE"))) ? "외근" : "휴가"));
                 System.out.println("---------------------------------");
 
             }
@@ -120,8 +120,6 @@ public class ManagerDAO {
             close(pstmt);
         }
     }
-
-
     public void Check_or_employee() {
 
         Connection con = getConnection();
@@ -130,29 +128,12 @@ public class ManagerDAO {
         ResultSet rset = null;
         ManagerDTO managerDTO = null;
 
-
-//        String query = "SELECT\n" +
-//                "      A.JAVACHIP_CODE,\n" +
-//                "      A.JAVACHIP_ID,\n" +
-//                "      A.JAVACHIP_NAME,\n" +
-//                "      A.POSITION,\n" +
-//                "      B.WORK_HOUR,\n" +
-//                "      B.REMAIN_VACATION,\n" +
-//                "      B.WORK_STATUS,\n" +
-//                "      B.ARRIVE_INFO,\n" +
-//                "      B.LEAVE_INFO\n" +
-//                "      FROM JAVACHIP_MEMBER A\n" +
-//                "      JOIN ATTENDANCE_INFO B ON A. JAVACHIP_CODE = B.JAVACHIP_CODE";
-//        System.out.println(query);
-
-
+        String query = prop.getProperty("EMPLOYEE_INQUIRY");
         try {
-//            pstmt = con.prepareStatement(query);
+            pstmt = con.prepareStatement(query);
             rset = pstmt.executeQuery();
 
-
             while (rset.next()) {
-
 
                 System.out.println("금일 근태 현황 조회");
                 System.out.println("=====================================");
@@ -162,10 +143,8 @@ public class ManagerDAO {
                 System.out.println("출근정보" + "  " + rset.getString("ARRIVE_INFO"));
                 System.out.println("퇴근정보" + (rset.getBoolean("LEAVE_INFO") == true ? "   퇴근" : "  미퇴근"));
 
-
             }
             System.out.println("조회내용  :  " + managerDTO);
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -174,12 +153,9 @@ public class ManagerDAO {
             close(rset);
             close(pstmt);
         }
-
-
     }
 
-
-    public void selectLeaveinfo() {
+    public void selectLeaveInfo() {
 
         Connection con = getConnection();
 
@@ -187,29 +163,25 @@ public class ManagerDAO {
         ResultSet rset = null;
         ManagerDTO managerDTO = null;
 
-
-        String query = prop.getProperty("selectLeaveinfo");
-        // System.out.println(query);
+        String query = prop.getProperty("selectLeaveInfo");
 
         try {
             pstmt = con.prepareStatement(query);
             rset = pstmt.executeQuery();
-
+            System.out.println("―――――――――――――――――――――――――――");
+            System.out.println("│  사원번호  |  사원이름  |   직책   |   일정   │");
+            System.out.println("―――――――――――――――――――――――――――");
             while (rset.next()) {
 
-                System.out.println("퇴근 정보 조회");
-                System.out.println("===========================");
-                System.out.println("사원번호" +"  "+ rset.getInt("JAVACHIP_CODE") +"  " + "사원이름"+"  " + rset.getString("JAVACHIP_NAME"));
-                System.out.println("                           ");
-                System.out.println("직책" +"  " + rset.getString("POSITION"));
-                System.out.println("                           ");
-                System.out.println("퇴근정보" + (rset.getBoolean("LEAVE_INFO") == true ? "   퇴근" : "  미퇴근"));
-                System.out.println("===========================");
-
+                System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
+                        + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
+                        + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + "  " : rset.getString("POSITION") + "   ") + "|"
+                        +(rset.getBoolean("LEAVE_INFO") == true ? "   퇴근   |" : "  미퇴근  |"));
+                System.out.println("―――――――――――――――――――――――――――");
 
 
             }
-
+            System.out.println("---------------------------------");
         } catch (SQLException e) {
             throw new RuntimeException(e);
 
@@ -222,11 +194,3 @@ public class ManagerDAO {
     }
 
 }
-
-
-
-
-
-
-
-

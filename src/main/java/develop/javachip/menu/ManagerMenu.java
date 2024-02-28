@@ -18,7 +18,7 @@ public class ManagerMenu {
 
         while (true) {
             // 전체 직원 근태정보 조회 내용 출력
-            System.out.println("            메뉴 목록             ");
+            System.out.println("        |    메뉴 목록    |         ");
             System.out.println();
             System.out.println("1. 개별 직원 근태 현황");
             System.out.println("2. 일정정보");
@@ -60,6 +60,7 @@ public class ManagerMenu {
                         
                     case 6: // 퇴근정보
                         System.out.println("퇴근정보 메뉴입니다.");
+                        managerDAO.selectLeaveInfo();
                         break;
 
                     case 7: // 퇴사자 삭제

@@ -59,7 +59,9 @@
         FROM ATTENDANCE_INFO
         WHERE JAVACHIP_CODE = ?
     </entry>
-    <entry key="selectLeaveinfo">
+
+    <!--    재원-->
+    <entry key="selectLeaveInfo">
         SELECT
         A.JAVACHIP_CODE,
         A.JAVACHIP_NAME,
