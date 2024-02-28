@@ -72,10 +72,6 @@ public class ManagerDAO {
                 selectedEmp.setLeaveInfo(rset.getInt("LEAVE_INFO"));
                 System.out.println(" - 퇴근정보 : " + ((rset.getBoolean("LEAVE_INFO") == true) ? "퇴근함" : "퇴근안함"));
 
-                selectedEmp.setWorkStatus(rset.getString("WORK_SCHEDULE"));
-                System.out.println(" - 일정정보 : " + ((rset.getString("WORK_SCHEDULE")) == null ? "정상출근" : "출장".equals((rset.getString("WORK_SCHEDULE"))) ? "출장" : "외근".equals((rset.getString("WORK_SCHEDULE"))) ? "외근" : "휴가"));
-                System.out.println("―――――――――――――――――――――");
-
             }
 
 
@@ -337,28 +333,53 @@ public class ManagerDAO {
     public void selectAllNextSchedule(Connection con) {
         //해당 요일 매개변수로 모든 직원의 해당 요일 일정 확인
         PreparedStatement pstmt = null;
+        PreparedStatement pstmt2 = null;
+        PreparedStatement pstmt3 = null;
+        PreparedStatement pstmt4 = null;
+        PreparedStatement pstmt5 = null;
+        PreparedStatement pstmt6 = null;
         ResultSet rset= null;
+        ResultSet rset2 = null;
+        ResultSet rset3 = null;
+        ResultSet rset4 = null;
+        ResultSet rset5 = null;
+        ResultSet rset6 = null;
 
         String query1 = prop.getProperty("selectEmployeeInfo");
+        String query2 = prop.getProperty("selectMonSchedule");
+        String query3 = prop.getProperty("selectTueSchedule");
+        String query4 = prop.getProperty("selectWedSchedule");
+        String query5 = prop.getProperty("selectThuSchedule");
+        String query6 = prop.getProperty("selectFriSchedule");
 
         try {
             pstmt = con.prepareStatement(query1);
+            pstmt2 = con.prepareStatement(query2);
+            pstmt3 = con.prepareStatement(query3);
+            pstmt4 = con.prepareStatement(query4);
+            pstmt5 = con.prepareStatement(query5);
+            pstmt6 = con.prepareStatement(query6);
             rset = pstmt.executeQuery();
+            rset2 = pstmt2.executeQuery();
+            rset3 = pstmt3.executeQuery();
+            rset4 = pstmt4.executeQuery();
+            rset5 = pstmt5.executeQuery();
+            rset6 = pstmt6.executeQuery();
             System.out.println();
             System.out.println("[전체 사원의 다음주 일정 목록]");
             System.out.println("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
             System.out.println("│  사원번호  |  사원이름  |   직책   |   월요일   |   화요일   |   수요일   |   목요일   |   금요일   │");
             System.out.println("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
 
-            while (rset.next()) {
+            while (rset.next() && rset2.next()  && rset3.next()  && rset4.next()  && rset5.next()  && rset6.next()) {
                 System.out.println("│     "+(rset.getInt("JAVACHIP_CODE") >= 10 ? rset.getInt("JAVACHIP_CODE") + "    " : rset.getInt("JAVACHIP_CODE") + "     ") + "|"
                         + "   " + (rset.getString("JAVACHIP_NAME").length() <= 2 ? rset.getString("JAVACHIP_NAME") + "    " : rset.getString("JAVACHIP_NAME") + "  ") + "|"
                         + "   " + (rset.getString("POSITION").length() > 2 ? rset.getString("POSITION") + " " : rset.getString("POSITION") + "   ") + "|"
-                        + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
-                        + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
-                        + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
-                        + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "|"
-                        + (rset.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset.getString("DAY_SCHEDULE") + "    ") + "│"
+                        + (rset2.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset2.getString("DAY_SCHEDULE") + "    ") + "|"
+                        + (rset3.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset3.getString("DAY_SCHEDULE") + "    ") + "|"
+                        + (rset4.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset4.getString("DAY_SCHEDULE") + "    ") + "|"
+                        + (rset5.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset5.getString("DAY_SCHEDULE") + "    ") + "|"
+                        + (rset6.getString("DAY_SCHEDULE") == null ? ("  정상근무  ") : "    " + rset6.getString("DAY_SCHEDULE") + "    ") + "│"
                 );
 
                 System.out.println("-------------------------------------------------------------------------------------------");

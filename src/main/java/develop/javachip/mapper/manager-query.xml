@@ -64,8 +64,7 @@
         REMAIN_VACATION,
         WORK_STATUS,
         ARRIVE_INFO,
-        LEAVE_INFO,
-        WORK_SCHEDULE
+        LEAVE_INFO
         FROM ATTENDANCE_INFO
         WHERE JAVACHIP_CODE = ?
     </entry>
@@ -133,14 +132,42 @@
         SELECT
         A.JAVACHIP_CODE,
         A.JAVACHIP_NAME,
-        A.POSITION,
-        B.DAY_SCHEDULE
+        A.POSITION
         FROM JAVACHIP_MEMBER A
-        JOIN WORK_SCHEDULE B ON A.JAVACHIP_CODE = B.JAVACHIP_CODE
     </entry>
-    <!--    <entry key="selectNextSchedule">-->
-    <!--        SELECT-->
-    <!--              DAY_SCHEDULE-->
-    <!--        FROM WORK_SCHEDULE_NEXTWEEK-->
-    <!--    </entry>-->
+    <entry key="selectMonSchedule">
+        SELECT
+              JAVACHIP_CODE,
+              DAY_SCHEDULE
+         FROM WORK_SCHEDULE_NEXTWEEK
+        WHERE DAYS = '월요일';
+    </entry>
+    <entry key="selectTueSchedule">
+        SELECT
+        JAVACHIP_CODE,
+        DAY_SCHEDULE
+        FROM WORK_SCHEDULE_NEXTWEEK
+        WHERE DAYS = '화요일';
+    </entry>
+    <entry key="selectWedSchedule">
+        SELECT
+        JAVACHIP_CODE,
+        DAY_SCHEDULE
+        FROM WORK_SCHEDULE_NEXTWEEK
+        WHERE DAYS = '수요일';
+    </entry>
+    <entry key="selectThuSchedule">
+        SELECT
+        JAVACHIP_CODE,
+        DAY_SCHEDULE
+        FROM WORK_SCHEDULE_NEXTWEEK
+        WHERE DAYS = '목요일';
+    </entry>
+    <entry key="selectFriSchedule">
+        SELECT
+        JAVACHIP_CODE,
+        DAY_SCHEDULE
+        FROM WORK_SCHEDULE_NEXTWEEK
+        WHERE DAYS = '금요일';
+    </entry>
 </properties>

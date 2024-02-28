@@ -39,10 +39,7 @@ public class SystemMenu {
       String inputPw = scanner.nextLine();
       System.out.println("=================================");
 
-      System.out.println("StaffDTO : " +staffDAO.selectStaff(con, inputId));
       if (staffDAO.selectStaff(con, inputId) != null && staffDAO.selectStaff(con, inputId).getStaffPw().equals(inputPw)) { //입력한 ID/PW가 DB와 일치한다면
-        System.out.println("inputId : " + inputId + "inputID와 관리자 ID 일치여부 : " + inputId.equals("USER07"));
-        System.out.println("입력한 PW와 DB상 PW 일치여부 : " + staffDAO.selectStaff(con, inputId).getStaffPw().equals(inputPw));
         //관리자 인지 아닌지 여부 확인
         // 로그인한 아이디에 따라 관리자 메뉴 와 일반직원 메뉴 관련 메소드 호출
           if (inputId.equals("USER07")) {// 관리자가 접속한 경우
@@ -56,8 +53,6 @@ public class SystemMenu {
           }
         break;
       } else { // 입력한 ID가 DB에 존재하지 않는다면
-        System.out.println("inputId = " + inputId);
-        System.out.println("inputPw = " + inputPw);
         System.out.println("아이디와 비밀번호가 일치하지 않거나 올바르지 않습니다.");
         System.out.println("다시 입력해주세요.");
       }

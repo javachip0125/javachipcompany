@@ -92,6 +92,7 @@ public class StaffMenu {
         if (menuNum == 5) {
           System.out.println("로그아웃이 완료되었습니다.");
           System.out.println("프로그램을 종료합니다.");
+          break;
         }
       } catch (InputMismatchException e) { //menuNum에 정수가 아닌 타입으로 입력한 경우
         System.out.println("메뉴를 잘못 선택했습니다. 다시 선택해주세요.");
