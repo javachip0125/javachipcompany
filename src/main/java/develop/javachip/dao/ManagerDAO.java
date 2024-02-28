@@ -26,7 +26,7 @@ public class ManagerDAO {
             throw new RuntimeException(e);
         }
     }
-
+    // 사번기준으로 정보 조회
     public void EMPLOYEE_INQUIRY(Connection con) {
 
         PreparedStatement pstmt = null;
@@ -86,6 +86,7 @@ public class ManagerDAO {
             close(pstmt);
         }
     }
+
     // 전체 직원 당일 근무 현황 조회
     public void selectWorkStatus(Connection con) {
 
@@ -161,7 +162,6 @@ public class ManagerDAO {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-        ManagerDTO managerDTO = null;
 
         String query = prop.getProperty("selectLeaveInfo");
 
@@ -192,5 +192,26 @@ public class ManagerDAO {
             close(rset);
         }
     }
+    public void deleteMember(){
+        Connection con = getConnection();
 
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String query = prop.getProperty("deleteMember");
+
+        try {
+            pstmt = con.prepareStatement(query);
+
+            pstmt.setInt(1, 24);
+            pstmt.setInt(2, 24);
+            pstmt.setInt(3, 24);
+            pstmt.setInt(4, 24);
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
