@@ -54,7 +54,7 @@ public class ManagerDAO {
 
                 selectedEmp.setStaffCode((rset.getInt("JAVACHIP_CODE")));
                 System.out.println();
-                System.out.println("---------------------------------");
+                System.out.println("―――――――――――――――――――――");
                 System.out.println("사원 번호 : " + rset.getString("JAVACHIP_CODE"));
                 System.out.println("---------------------------------");
                 selectedEmp.setWorkHour(rset.getInt("WORK_HOUR"));
@@ -74,7 +74,7 @@ public class ManagerDAO {
 
                 selectedEmp.setWorkStatus(rset.getString("WORK_SCHEDULE"));
                 System.out.println(" - 일정정보 : " + ((rset.getString("WORK_SCHEDULE")) == null ? "정상출근" : "출장".equals((rset.getString("WORK_SCHEDULE"))) ? "출장" : "외근".equals((rset.getString("WORK_SCHEDULE"))) ? "외근" : "휴가"));
-                System.out.println("---------------------------------");
+                System.out.println("―――――――――――――――――――――");
 
             }
 
