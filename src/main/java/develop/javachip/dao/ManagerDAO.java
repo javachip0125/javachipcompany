@@ -404,7 +404,7 @@ public class ManagerDAO {
     // 직원의 출퇴근 정보 변경
     public int updateArriveInfo(Connection con) {
 
-        System.out.println(" 출근을 입력해주세요 :");
+        System.out.print("출근을 입력해주세요 :");
         String arrive = sc.nextLine();
         int result1 = 0;
         if (arrive.equals("출근")) {
@@ -436,7 +436,7 @@ public class ManagerDAO {
 
     public int updateLeaveInfo(Connection con) {
 
-        System.out.println(" 퇴근을 입력해주세요 :");
+        System.out.print("퇴근을 입력해주세요 :");
         String leave = sc.nextLine();
         int result2 = 0;
         if (leave.equals("퇴근")) {
